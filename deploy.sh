@@ -6,6 +6,8 @@ set -e
 # 生成静态文件
 npm run docs:build
 
+git config user.name Merlin-Liu
+git config user.email is_liuguangfu@163.com
 git add .
 git commit -m "update docs"
 git push origin docs
@@ -14,7 +16,7 @@ git push origin docs
 cd docs/.vuepress/dist
 
 git init
-git config user.name liuguangfu
+git config user.name Merlin-Liu
 git config user.email is_liuguangfu@163.com
 git add .
 git commit -m 'deploy'
