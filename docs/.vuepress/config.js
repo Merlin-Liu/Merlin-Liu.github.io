@@ -21,12 +21,46 @@ module.exports = {
                 }
             ],
             '/oldBlog/': [
+                'BSTmap',
+                'BST',
+                'functional',
+                'httpCache',
+                'vuediff',
                 {
-                    title: "旧博客",
-                    collapsable: false,
+                    title: "数据库事务处理的并发控制技术",
+                    collapsable: true,
                     children: [
-                        'css',
-                        'interview'
+                        'concurrent',
+                        'transactionModel'
+                    ]
+                },
+                {
+                    title: "基础业务",
+                    collapsable: true,
+                    children: [
+                        'imageLazy',
+                        'sticky'
+                    ]
+                },
+                'setState',
+                'virtualDOM',
+                'css',
+                'interview',
+                {
+                    title: "前端实习生面试题分析",
+                    collapsable: true,
+                    children: [
+                        'answer1',
+                        'answer2'
+                    ]
+                },
+                {
+                    title: "Redux和React-Redux的实现",
+                    collapsable: true,
+                    children: [
+                        'react-redux1',
+                        'react-redux2',
+                        'react-redux3'
                     ]
                 }
             ],
