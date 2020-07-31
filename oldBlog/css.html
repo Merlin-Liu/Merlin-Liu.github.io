@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>多种方法实现左右固定，中间自适应的CSS布局 | Niko&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="https://github.com/fluidicon.png">
+    <meta name="description" content="自我驱动～">
+    <link rel="preload" href="/assets/css/0.styles.8392406f.css" as="style"><link rel="preload" href="/assets/js/app.0c1d8842.js" as="script"><link rel="preload" href="/assets/js/2.7b65586e.js" as="script"><link rel="preload" href="/assets/js/9.51338633.js" as="script"><link rel="prefetch" href="/assets/js/10.6a486992.js"><link rel="prefetch" href="/assets/js/3.6447362f.js"><link rel="prefetch" href="/assets/js/4.927b536d.js"><link rel="prefetch" href="/assets/js/5.afb3f4d4.js"><link rel="prefetch" href="/assets/js/6.20eab6d9.js"><link rel="prefetch" href="/assets/js/7.3cf6b758.js"><link rel="prefetch" href="/assets/js/8.c313dd7f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.8392406f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Niko's blog</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>旧博客</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/oldBlog/css.html" aria-current="page" class="active sidebar-link">多种方法实现左右固定，中间自适应的CSS布局</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/oldBlog/interview.html" class="sidebar-link">2017年10月WEB前端开发实习生面试题总结</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>2017-11-04 15:48，发布于博客园</p> <p><a href="https://www.cnblogs.com/isLiu/p/7783552.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/isLiu/p/7783552.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <p>布局是面试中常问的问题，尤其是这类的题目，怎么答才好呢？</p> <p>大多数人的第一个方法是浮动，没错，浮动。第二个方法呢？你回答定位，没错。第三个方法呢？.... 第四个方法呢？第五个方法呢？....</p> <p>其实能想起来两个方法的人，这道题已经不及格了。所以呀，我来说几种方法吧。</p> <div class="language- extra-class"><pre><code>随便多说一点，如果你懂语意化开发并且简历中提到，怎么让面试官知道呢？假如你写了个界面，全是div，你简历中提到的语意化开发在哪呢？你是面试官你会怎么想?
+</code></pre></div><p>以下代码用语意化书写</p> <h3 id="第一种方法：浮动"><a href="#第一种方法：浮动" class="header-anchor">#</a> 第一种方法：浮动</h3> <p>最常见的，不说了</p> <div class="language- extra-class"><pre class="language-text"><code>	&lt;section class=&quot;layout float&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			.layout.float .left{
+				float: left;
+				width: 300px;
+				background: red;
+			}
+			.layout.float .right{
+				float: right;
+				width: 300px;
+				background: blue;
+			}
+			.layout.float .center{
+				background: yellow;
+			}
+		&lt;/style&gt;
+		&lt;article class=&quot;left-right-center&quot;&gt;
+			&lt;div class=&quot;left&quot;&gt;&lt;/div&gt;
+			&lt;div class=&quot;right&quot;&gt;&lt;/div&gt;
+			&lt;div class=&quot;center&quot;&gt;
+				&lt;h2&gt;浮动解决方案&lt;/h2&gt;
+				1.这是三栏布局中间部分
+				2.这是三栏布局中间部分
+			&lt;/div&gt;
+		&lt;/article&gt;
+	&lt;/section&gt;		    
+</code></pre></div><h3 id="第二种方法：定位"><a href="#第二种方法：定位" class="header-anchor">#</a> 第二种方法：定位</h3> <p>不多说</p> <div class="language- extra-class"><pre class="language-text"><code>	&lt;section class=&quot;layout absolute&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			.layout.absolute .left-center-right&gt;div{
+				position: absolute;
+			}
+			.layout.absolute .left{
+				left: 0px;
+				width: 300px;
+				background: red;
+			}
+			.layout.absolute .center{
+				left: 300px;
+				right: 300px;
+				background: yellow;
+			}
+			.layout.absolute .right{
+				right: 0px;
+				width: 300px;
+				background: blue;
+			}
+		&lt;/style&gt;
+		&lt;article class=&quot;left-center-right&quot;&gt;
+			&lt;div class=&quot;left&quot;&gt;&lt;/div&gt;
+			&lt;div class=&quot;center&quot;&gt;
+				&lt;h2&gt;绝对定位解决方案&lt;/h2&gt;
+				1.这是三栏布局中间部分
+				2.这是三栏布局中间部分
+			&lt;/div&gt;
+			&lt;div class=&quot;right&quot;&gt;&lt;/div&gt;
+		&lt;/article&gt;
+	&lt;/section&gt;
+</code></pre></div><h3 id="第三中方法：flex布局"><a href="#第三中方法：flex布局" class="header-anchor">#</a> 第三中方法：flex布局</h3> <p>其实稍微想一下就能想到这个flex布局，<strong><font color="red">article的display设置为flex，左右div宽度固定，中间div的flex属性设置为1，让其自动填充剩下的空间</font></strong></p> <div class="language- extra-class"><pre class="language-text"><code>	&lt;section class=&quot;layout flexbox&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			.layout.flexbox{
+				margin-top: 140px;
+			}
+			.layout.flexbox .left-center-right{
+				display: flex;
+			}
+			.layout.flexbox .left{
+				width: 300px;
+				background: red;
+			}
+			.layout.flexbox .center{
+				flex: 1;
+				background: yellow;
+			}
+			.layout.flexbox .right{
+				width: 300px;
+				background: blue;
+			}
+		&lt;/style&gt;
+		&lt;article class=&quot;left-center-right&quot;&gt;
+			&lt;div class=&quot;left&quot;&gt;&lt;/div&gt;
+			&lt;div class=&quot;center&quot;&gt;
+				&lt;h2&gt;flexbox解决方案&lt;/h2&gt;
+				1.这是三栏布局中间部分
+				2.这是三栏布局中间部分
+			&lt;/div&gt;
+			&lt;div class=&quot;right&quot;&gt;&lt;/div&gt;
+		&lt;/article&gt;
+	&lt;/section&gt;
+</code></pre></div><h3 id="第四种方法：表格布局"><a href="#第四种方法：表格布局" class="header-anchor">#</a> 第四种方法：表格布局</h3> <p>这种方法也不难想到，<strong><font color="red">移动端有了flex这种神器，table-cell就有点落伍了。方法就是将article的display设置成table，article下的所有div的display设置成table-cell，把不需要自适应的div给个宽度就可以了。</font></strong>
+顺便说以下，table表格中的单元格最大的特点之一就是同一行列表元素都等高，所以等高布局就可以用到了。
+代码在这</p> <div class="language- extra-class"><pre class="language-text"><code>	&lt;section class=&quot;layout table&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			.layout.table .left-center-right{
+				width: 100%;
+				display: table;
+				height: 100px;
+			}
+			.layout.table .left-center-right&gt;div{
+				display: table-cell;
+			}
+			.layout.table .left{
+				width: 300px;
+				background: red;
+			}
+			.layout.table .center{
+				background: yellow;
+			}
+			.layout.table .right{
+				width: 300px;
+				background: blue;
+			}
+		&lt;/style&gt;
+		&lt;article class=&quot;left-center-right&quot;&gt;
+			&lt;div class=&quot;left&quot;&gt;&lt;/div&gt;
+			&lt;div class=&quot;center&quot;&gt;
+				&lt;h2&gt;表格解决方案&lt;/h2&gt;
+				1.这是三栏布局中间部分
+				2.这是三栏布局中间部分
+			&lt;/div&gt;
+			&lt;div class=&quot;right&quot;&gt;&lt;/div&gt;
+		&lt;/article&gt;
+	&lt;/section&gt;
+</code></pre></div><h3 id="第五种方法：网格布局"><a href="#第五种方法：网格布局" class="header-anchor">#</a> 第五种方法：网格布局</h3> <p>这种不太常用，不过用过的同学想起来也不难，<strong><font color="red">既然是网格布局，那就把article的display设置为grid呗，既然是网格，那就要有行和列？既然有行和列，就可以设置行和列的宽高吧？所以这两个属性就来了<font color="black">grid-template-rows</font>和<font color="black">grid-template-columns</font>，不懂的可以看看下面的这个文章</font></strong> <a href="http://blog.csdn.net/iefreer/article/details/50544261" target="_blank" rel="noopener noreferrer">http://blog.csdn.net/iefreer/article/details/50544261<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <div class="language- extra-class"><pre class="language-text"><code>	&lt;section class=&quot;layout grid&quot;&gt;
+		&lt;style type=&quot;text/css&quot;&gt;
+			.layout.grid .left-center-right{
+				display: grid;
+				width: 100%;
+				grid-template-rows: 100px;
+				grid-template-columns:300px auto 300px;
+			}
+			.layout.grid .left{
+				background: red;
+			}
+			.layout.grid .center{
+				background: yellow;
+			}
+			.layout.grid .right{
+				background: blue;
+			}
+		&lt;/style&gt;
+		&lt;article class=&quot;left-center-right&quot;&gt;
+			&lt;div class=&quot;left&quot;&gt;&lt;/div&gt;
+			&lt;div class=&quot;center&quot;&gt;
+				&lt;h2&gt;网格解决方案&lt;/h2&gt;
+				1.这是三栏布局中间部分
+				2.这是三栏布局中间部分
+			&lt;/div&gt;
+			&lt;div class=&quot;right&quot;&gt;&lt;/div&gt;
+		&lt;/article&gt;
+	&lt;/section&gt;
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.0c1d8842.js" defer></script><script src="/assets/js/2.7b65586e.js" defer></script><script src="/assets/js/9.51338633.js" defer></script>
+  </body>
+</html>
