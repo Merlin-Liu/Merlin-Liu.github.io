@@ -2,7 +2,7 @@ module.exports = {
     title: 'Niko\'s blog',
     description: '自我驱动～',
     head: [
-        ['link', { rel: 'icon', href: 'https://github.com/fluidicon.png' }]
+        ['link', { rel: 'icon', href: '/icon.png' }]
     ],
     themeConfig: {
         nav: [

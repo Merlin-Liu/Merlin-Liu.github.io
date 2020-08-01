@@ -1,18 +1,13 @@
 {
   "name": "blog",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "docs": "git push origin docs",
+    "master": "cd docs/.vuepress/dist && git push -f git@github.com:Merlin-Liu/Merlin-Liu.github.io.git master",
+    "deploy": "sh deploy.sh"
   }
 }

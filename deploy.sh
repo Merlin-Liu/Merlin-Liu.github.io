@@ -4,7 +4,7 @@
 set -e
 
 # 生成静态文件
-npm run docs:build
+npm run build
 
 git config user.name Merlin-Liu
 git config user.email is_liuguangfu@163.com
