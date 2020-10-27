@@ -17,7 +17,11 @@ module.exports = {
                 {
                     title: "博客",
                     collapsable: false,
-                    children: []
+                    children: [
+                        'react-scheduler',
+                        'interview',
+                        'code'
+                    ]
                 }
             ],
             '/oldBlog/': [
