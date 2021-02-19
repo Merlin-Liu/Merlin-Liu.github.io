@@ -123,7 +123,7 @@ typeof 1n === "bigint"
 typeof Symbol(3) === "symbol"
 typeof b === "undefined" // b未定义
 typeof [] === "object"
-typeof console.log === "function" // typeof对于对象，除了函数以外都会选择function
+typeof console.log === "function"
 typeof null === 'object'
 ```
 
@@ -209,7 +209,7 @@ NaN == 0 // false
 
 * 如果两个操作数都是数字，则进行数值比较
 * 如果有一个操作数是数字，则将另一个操作数转换为数字进行比较
-* 如果两个都是字符串，则比较两个字符串的编码值
+* 如果两个都是字符串，则比较两个字符串的unicode编码值
 * 如果又一个操作数是对象，则将对象类型转为基本类型（valueOf、toString）进行比较
 * 任何操作数与NaN进行比较都是false
 
@@ -222,3 +222,283 @@ NaN == 0 // false
 ### if
 
 if括号里面的相当于用Boolean做了转换
+
+## new
+
+内部原理
+1. 新生成一个对象
+2. 链接原型
+3. 绑定this
+4. 返回新对象
+
+```js
+function cretate() {
+    const [Ctor, ...props] = arguments;
+    
+    // 创建一个新对象，并把原型指向构造函数的prototype
+    const obj = Object.ceate(Ctor.prototype);
+
+    // 执行构造函数，绑定this
+    Ctor.apply(obj, props);
+
+    return obj;
+}
+```
+
+## instanceof
+
+obj instanceof Ctor, 检查obj的原型链上是否存在Ctor的原型（prototype），所以使用instanceof操作符能区分对象类型是object、function、array的几个
+
+```js
+const a = () => {}
+a instanceof Function // => true
+
+const b = {}
+b instanceof Object // => true
+
+const c = []
+c instanceof Array // => true
+```
+
+实现一个instanceof
+
+```js
+function _instanceof(obj, Ctor) {
+    let objProto = obj.__proto__;
+    const objProtoType = Ctor.prototype;
+
+    let isFind = false;
+    while(objProto !== null) {
+        if (objProto === objProtoType) {
+            isFind = true;
+        }
+        else {
+            objProto = objProto.__proto__;
+        }
+    }
+
+    return isFind;
+}
+```
+
+## 闭包
+
+定义：一个函数A内部返回的一个函数B，并且函数B中使用了函数A中的变量，所以函数B就被成为闭包
+
+```js
+function A() {
+    let num = 0;
+
+    function B() {
+        num++;
+    }
+
+    return B
+}
+```
+
+经典面试问题
+```js
+for (var i = 1; i <= 10; i++) {
+    setTimeout(function () {
+        console.log(i);
+    }, i * 1000);
+}
+```
+根据浏览器的事件循环过程，先执行宏任务，再执行微任务；for循环宏任务，setTimeout是将handle放入下一个宏任务队列的最前面。
+所以此段代码等setTimeout的handle开始执行时，for循环已经执行完成了，i也变为最终的值11，所以handle里得到i的都是11。
+
+setTimeout属于宏任务。
+
+三种解决办法：
+
+第一种：闭包
+```js
+for (var i = 1; i <= 10; i++) {
+    (function (j) {
+        setTimeout(function () {
+            console.log(j);
+        }, j * 1000);
+    })(i);
+}
+```
+使用立即执行函数+闭包，闭包引用了立即执行函数里的变量，导致变量不会被回收，所以下次事件循环的时候还能取到原来的变量；循环了多少次就形成了多少个闭包
+
+第二种：使用setTimeout的第三个参数
+```js
+for (var i = 1; i <= 10; i++) {
+    setTimeout(function (j) {
+        console.log(j);
+    }, i * 1000, i);
+}
+```
+setTimeout第一个参数接收一个字符串或者一个函数handle，第二个参数是delay，剩余的参数都会给handle当作参数
+
+第三种：let
+```js
+for (let i = 1; i <= 10; i++) {
+    setTimeout(function () {
+        console.log(i);
+    }, i * 1000);
+}
+```
+let会形成一个块级作用域，相当于setTimeout的handle访问的只是当时那块里i的值
+
+## 深拷贝
+
+如果两个变量同时引用了一个对象，一方发生改变，那么另一方也随之改变
+
+Object.assign, 展开运算符都是浅拷贝
+
+浅拷贝只适用于引用类型中不包括引用类型的情况，故需要引入深拷贝
+
+深拷贝简单的办法可以用`JSON.parse(JSON.stringify(obj))`来解决，但是存在局限性:
+1. 会忽略undefined
+2. 会忽略symbol
+3. 会忽略function
+4. 循环引用的问题就会报错
+
+简单写一个深拷贝，拷贝不了function
+
+```js
+function deepClone(origin, target) {
+    target = target || {};
+
+    for (const prop in origin) {
+        if (!origin.hasOwnProperty(prop)) continue;
+
+        const value = origin[prop];
+
+        // 到对象和数组引用值
+        if (typeof value === 'object') {
+            // 数组情况
+            if (Object.prototype.toString.call(value) === '[object Array]') {
+                target[prop] = [];
+            }
+            // 对象情况
+            else {
+                target[prop] = {};
+            }
+
+            // 递归
+            deepClone(value, target[prop]);
+        }
+        else {
+            target[prop] = value;
+        }
+    }
+}
+```
+
+## 模块化
+
+::: tip
+相关面试题
+1. module.exports和exports 
+2. default exports和exports
+3. require/import 区别
+4. a模块引用了b模块，b模块引用a模块，node是怎么避免模块的循环引用的
+:::
+
+`CommonJS`规范、`AMD`规范、`CMD`规范、ES6的`ES Module`四种规范都是前端模块化的规范
+
+没有模块化规范之前，我们通过以下办法来使外部无法修改内部没有暴露出来的变量，从而达到模块化的目的
+
+* 一个对象内部就是一个模块 `let obj = {}`
+* 一个函数内部有作用域 `function fn() {var a = 1}`
+* 立即执行函数 `(function() {})()`
+
+### CommonJS
+
+定义：CommonJS规范简单说，每一个文件就是一个模块，每一个模块就是一个作用域，再该模块定义的数据，无法被其他模块读取
+
+出口：需要暴露的数据都放到`module.expotrs`对象里，或者`exports.xxx = xxx`。`module.expotrs === expotrs`为true
+
+加载：加载模块使用`require`方法，该方法读取**并执行**，返回文件内部的`module.expotrs`对象
+
+特点：`require`得到的是拷贝值，可以随便修改
+
+缺点：浏览器中无法运行；模块是同步加载的，需要等依赖模块执行完
+
+### AMD
+
+AMD和CMD是基于CommonJS的，是对CommonJS的缺点的两种解决方案
+
+Asynchronous Module Definition，异步模块定义，是一个在浏览器端的模块定义规范
+
+主要解决的问题：
+1. 多个JS文件有依赖，被依赖的文件需要早于依赖他的文件加载到浏览器内（提供回调能力解决此问题）
+2. JS加载的时候会停止页面渲染，文件多，卡顿
+
+### CMD
+
+CMD和AMD解决了一样的问题，都是异步加载，与AMD的区别就是对依赖的处理不一样
+
+**1、AMD推崇依赖前置，在定义模块的时候就要声明其依赖的模块**
+**2、CMD推崇就近依赖，只有在用到某个模块的时候再去require**
+
+所以：
+1、AMD用户体验好，因为没有延迟，依赖的模块在require的时候就执行了
+2、CMD性能好，只有用户需要才会去执行依赖模块
+
+### ES Module
+
+ES6的模块化规范
+
+特点：
+1. export和import不能出现在块级作用域内
+2. import有声明提升的效果
+
+ES Module和CommonJS的区别
+1. CommonJS是运行时加载，ES Module是编译时输出
+2. CommonJS输出的是拷贝值，ES Module输出的是引用值，被引用的模块内发生修改，引用的也发生修改
+3. CommonJS加载模块的路径可以是个表达式，因为用的是require方法，而import只能是字符串
+4. CommonJS的this指向当前模块，ES Module的this是undefined
+5. ES Module没有`arguments`、`require`、`module`、`exports`、`__dirname`、`__filename`等顶层变量
+
+### CommonJS的循环引用问题，node是如何解决的
+
+模块加载过程存在缓存机制，Node对模块的加载做了缓存，可以通过require.cache访问到，下一次加载中直接从缓存中读结果，所以不会造成死循环
+
+但循环依赖会造成模块加载的缺失现象，如：
+a.js
+```js
+let b = require('./B');
+
+console.log('A: before logging b');
+console.log(b);
+console.log('A: after logging b');
+
+module.exports = {
+    A: 'this is a Object'
+};
+```
+
+b.js
+```js
+let a = require('./A');
+
+console.log('B: before logging a');
+console.log(a);
+console.log('B: after logging a');
+
+module.exports = {
+    B: 'this is b Object'
+};
+```
+
+运行a.js的结果为
+```
+B: before logging a
+{}
+B: after logging a
+A: before logging b
+{B: 'this is b Object'}
+A: after logging b
+```
+
+因为b.js从缓存中获取到了a.js的结果，但获取到的是不完整的a.js，也就是只得到了a.js中`let b = require('./B')`之前的结果，所以是个空对象
+
+解决办法是把最终导出的结果放到`let b = require('./B')`之前
+
+具体参考：http://maples7.com/2016/08/17/cyclic-dependencies-in-node-and-its-solution/
