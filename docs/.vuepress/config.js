@@ -19,8 +19,9 @@ module.exports = {
                     collapsable: false,
                     children: [
                         'react-scheduler',
-                        'interview',
-                        'code'
+                        'browser',
+                        'code',
+                        'js'
                     ]
                 }
             ],

@@ -1,5 +1,5 @@
 ---
-title: interview
+title: JS
 ---
 
 ## 暂时性死区
@@ -232,7 +232,7 @@ if括号里面的相当于用Boolean做了转换
 4. 返回新对象
 
 ```js
-function cretate() {
+function create() {
     const [Ctor, ...props] = arguments;
     
     // 创建一个新对象，并把原型指向构造函数的prototype
@@ -394,7 +394,7 @@ function deepClone(origin, target) {
 
 ::: tip
 相关面试题
-1. module.exports和exports 
+1. module.exports和exports（exports指向module.exports，exports = module.exports）
 2. default exports和exports
 3. require/import 区别
 4. a模块引用了b模块，b模块引用a模块，node是怎么避免模块的循环引用的
@@ -412,7 +412,9 @@ function deepClone(origin, target) {
 
 定义：CommonJS规范简单说，每一个文件就是一个模块，每一个模块就是一个作用域，再该模块定义的数据，无法被其他模块读取
 
-出口：需要暴露的数据都放到`module.expotrs`对象里，或者`exports.xxx = xxx`。`module.expotrs === expotrs`为true
+当node执行模块中的代码时，它会将模块中的代码，用一个函数进行包裹：`function (exports, require, module, __filename, __dirname) {}`, 所以我们在模块中可以直接访问当上述变量，exports指向module.exports
+
+出口：需要暴露的数据都放到`module.expotrs`对象里，或者`exports.xxx = xxx`
 
 加载：加载模块使用`require`方法，该方法读取**并执行**，返回文件内部的`module.expotrs`对象
 
@@ -502,3 +504,216 @@ A: after logging b
 解决办法是把最终导出的结果放到`let b = require('./B')`之前
 
 具体参考：http://maples7.com/2016/08/17/cyclic-dependencies-in-node-and-its-solution/
+
+## 防抖与截流
+
+区别：如果在小于时间间隔wait内一直触发这个函数，防抖只会触发一次（最后一次），而截流是每在wait时间触发一次
+
+防抖是控制次数，截流是控制频率
+
+防抖简单实现
+```js
+function debounce(fn, wait) {
+    let timer = null;
+
+    return function(...args) {
+        timer && clearTimeout(timer);
+
+        timer = setTimeout(() => {
+            fn.apply(this, args);
+        }, wait);
+    };
+}
+```
+
+截流简单实现
+```js
+function throttle(fn, wait) {
+    let timer = null;
+
+    return function(...args) {
+        timer && return;
+
+        setTimeout(() => {
+            timer = null;
+            fn.apply(this, args);
+        }, wait);
+    };
+}
+```
+
+## 继承
+
+实例存在__proto__属性，构造函数存在prototype属性，二者完全相等
+
+实现继承的思路是：创建父类实例，然后将父类实例作为子类的Prototype，本质是重写原型对象
+
+实现继承的方案
+
+1. 原型链继承：将子类的prototype赋值为父类的实例
+    缺点：
+    * 原型对象上的属性会被所有实例所共享
+    * 子类无法向父类的构造函数中传递参数
+2. 借用构造函数继承：在子类的构造函数中调用父类的构造函数，通过call、apply方法将子类的this给父类构造函数
+    缺点：
+    * 无法使用父类原型上的方法
+    * 父类方法函数都要实现在构造函数中，复用问题
+3. 组合式继承：将原型链继承和构造函数继承组合
+    缺点：
+    * 会调用两次父类的构造函数
+    * 父类中的属性会在子类中存在两份，一份存在原型链上（原型链继承的结果），一份存在子类实例上（调用父类构造函数的结果）；子类的属性会屏蔽构造函数的属性，所以解决了原型链继承的第一个缺点
+4. 寄生式继承：其实就是相当于Object.create(obj)，创建一个以obj作为原型对象的对象
+    引申：实现一个Object.create方法
+5. 寄生组合式继承：寄生生式继承生成一个父类的实例，在将该实例作为子类的原型，同时将子类原型的构造函数指向父类，然后再再子类构造函数中使用借用构造函数的办法调用父类构造函数
+
+### 实现Object.create方法
+```js
+function myCreate(prototype, desc) {
+    function F() {}
+    F.prototype = prototype;
+    const ret = new F();
+
+    prototype === null && (ret.__proto__ = null); // 这行很重要
+    desc && Object.defineProperty(ret, desc);
+
+    return ret;
+}
+```
+### 实现new 方法
+```js
+function myNew(Ctor, ...restArgs) {
+    // 将实例对象的原型对象设置为构造函数的原型
+    const ret = Object.create(Ctor.prototype);
+
+    // 借用构造函数继承属性
+    Ctro.apply(this, restArgs);
+
+    return;
+}
+```
+
+通过两种方法判断实例A是不是类B的子类
+1. instance instanceof B // 判断实例instance的原型链上是否有B的原型对象
+2. Object.prototype.isPrototypeOf(instance) // 判断当前原型对象是否在instance的原型链上
+
+### 实现一个instanceof操作符
+```js
+function myInstanceOf(instance, Ctor) {
+    let proto = instance.__proto__;
+    let result = false;
+
+    while (proto) {
+        if (proto === Ctor.prototype) {
+            result = true;
+            break;
+        }
+
+        proto = proto.__proto__;
+    }
+
+    return result;
+}
+```
+
+## call、apply、bind
+
+都是修改函数执行时的上下文
+区别：
+* call、apply是直接调用，而bind返回一个绑定完上下文的函数，需要手动执行
+* call接受参数列表(context, a, b, c, d)，apply接受参数数组(context, [a, b, c, d])
+
+实现主要的思路就是：谁调用的funciton，function中的this就指向谁，所以可以把需要修改上下文的函数挂到上下文对象上，再通过上下文对象调用function，就达到了修改function执行时上下文的目的
+
+### 实现call
+```js
+Function.prototype.call = function(context, ...args) {
+    context = context || window;
+    const key = Symbol('fn');
+
+    content[key] = this;
+    const result = content[key](...args);
+    delete content[key]
+
+    return result;
+}
+```
+### 实现apply
+```js
+Function.prototype.apply = function(context, args) {
+    context = context || window;
+    const key = Symbol('fn');
+
+    context[key] = this;
+    const result = context[key](...args);
+    delete content[key];
+
+    return result;
+}
+```
+### 实现bind
+```js
+Function.prototype.bind = function(context, ...args) {
+    const fn = this;
+    return function() {
+        // 这里需要return，获取函数执行后的返回值
+        return fn.apply(context, args);
+    }
+}
+// 简洁版
+Function.prototype.bind = function (context, ...args) {
+    return () => this.apply(context, ...args);
+}
+```
+
+### async 和 await
+
+说结果
+```js
+async function async1() {
+  console.log(1)
+  await async2()
+  console.log(2)
+  return await 3
+}
+
+async function async2() {
+  console.log(4)
+}
+
+setTimeout(function() {
+  console.log(5)
+},0)
+
+async1().then(v=>{console.log(v)})
+
+new Promise(function(resolve){
+  console.log(6)
+  resolve();
+  console.log(7)
+}).then(function(){
+  console.log(8)
+})
+
+console.log(9)
+
+//1 4 6 7 9 2 8 3 5
+```
+
+说结果
+```js
+var a = 0
+var b = async () => {
+  a = a + await 10
+  console.log('2', a)
+  a = (await 10) + a
+  console.log('3', a)
+}
+b()
+a++
+console.log('1', a)
+
+// 1-10，2-20，3-30
+// 注意：await内部实现了generators，generators会保留堆栈中东西
+```
+
+## V8垃圾回收制（未懂）
