@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>滚动到指定位置导航固定（CSS实现） | Niko&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/icon.png">
+    <meta name="description" content="自我驱动～">
+    <link rel="preload" href="/assets/css/0.styles.e7705c3d.css" as="style"><link rel="preload" href="/assets/js/app.c4d916ef.js" as="script"><link rel="preload" href="/assets/js/2.7b65586e.js" as="script"><link rel="preload" href="/assets/js/27.0a55d4e3.js" as="script"><link rel="prefetch" href="/assets/js/10.fe52b0c7.js"><link rel="prefetch" href="/assets/js/11.1ea010e8.js"><link rel="prefetch" href="/assets/js/12.4fad5f4d.js"><link rel="prefetch" href="/assets/js/13.b30c5e9b.js"><link rel="prefetch" href="/assets/js/14.3d89860c.js"><link rel="prefetch" href="/assets/js/15.1093c3a5.js"><link rel="prefetch" href="/assets/js/16.d78dfee6.js"><link rel="prefetch" href="/assets/js/17.e94f74a9.js"><link rel="prefetch" href="/assets/js/18.04933970.js"><link rel="prefetch" href="/assets/js/19.2cfc6a06.js"><link rel="prefetch" href="/assets/js/20.5af1bca2.js"><link rel="prefetch" href="/assets/js/21.deead1cc.js"><link rel="prefetch" href="/assets/js/22.b167ef02.js"><link rel="prefetch" href="/assets/js/23.93287a34.js"><link rel="prefetch" href="/assets/js/24.2a666b39.js"><link rel="prefetch" href="/assets/js/25.079594fc.js"><link rel="prefetch" href="/assets/js/26.d3c406d8.js"><link rel="prefetch" href="/assets/js/28.4e1c4d5e.js"><link rel="prefetch" href="/assets/js/29.6ad66f6f.js"><link rel="prefetch" href="/assets/js/3.6982cefd.js"><link rel="prefetch" href="/assets/js/30.7f13756b.js"><link rel="prefetch" href="/assets/js/4.927b536d.js"><link rel="prefetch" href="/assets/js/5.b71571d4.js"><link rel="prefetch" href="/assets/js/6.61e89258.js"><link rel="prefetch" href="/assets/js/7.3c739ce6.js"><link rel="prefetch" href="/assets/js/8.89b308a0.js"><link rel="prefetch" href="/assets/js/9.e0fc39fd.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e7705c3d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Niko's blog</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/oldBlog/BSTmap.html" class="sidebar-link">二叉树的深度优先遍历和广度优先遍历</a></li><li><a href="/oldBlog/BST.html" class="sidebar-link">详细教你实现BST</a></li><li><a href="/oldBlog/functional.html" class="sidebar-link">函数式编程与React高阶组件</a></li><li><a href="/oldBlog/httpCache.html" class="sidebar-link">详解HTTP缓存</a></li><li><a href="/oldBlog/vuediff.html" class="sidebar-link">理解Vue 2.5的Diff算法</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库事务处理的并发控制技术</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>基础业务</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/oldBlog/imageLazy.html" class="sidebar-link">图片懒加载</a></li><li><a href="/oldBlog/sticky.html" aria-current="page" class="active sidebar-link">滚动到指定位置导航固定（CSS实现）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/oldBlog/sticky.html#js实现" class="sidebar-link">JS实现</a></li><li class="sidebar-sub-header"><a href="/oldBlog/sticky.html#css实现" class="sidebar-link">CSS实现</a></li></ul></li></ul></section></li><li><a href="/oldBlog/setState.html" class="sidebar-link">React的setState分析</a></li><li><a href="/oldBlog/virtualDOM.html" class="sidebar-link">Virtual DOM的简单实现</a></li><li><a href="/oldBlog/css.html" class="sidebar-link">多种方法实现左右固定，中间自适应的CSS布局</a></li><li><a href="/oldBlog/interview.html" class="sidebar-link">2017年10月WEB前端开发实习生面试题总结</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端实习生面试题分析</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Redux和React-Redux的实现</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>2018-03-31 19:17，发布于博客园</p> <p><a href="https://www.cnblogs.com/isLiu/p/8683801.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/isLiu/p/8683801.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <p>最近公司做的业务都是使用Vue、Element写的，涉及到的相应的基础业务像轮播、预加载、懒加载，都是使用
+NPM上的工具来实现，原理和基础还是要有的，就来实现几个项目中常用到的业务。</p> <p>经常见到这样的效果，导航在页面中间，当界面滚动到导航的时候，导航就变成了<code>fixed</code>布局。为了看效果，我加了边框。</p> <img src="https://images2018.cnblogs.com/blog/1272362/201803/1272362-20180331182840542-161849516.png" width="320" height="568"> <p>刚开始，京东金融的注册登陆、还有下载App的导航在界面中部。当你滚动到导航的位置或者是再向下滚动的时候，导航就固定住了。</p> <img src="https://images2018.cnblogs.com/blog/1272362/201803/1272362-20180331183052439-2003928584.png" width="320" height="568"> <p>这就是大概效果，反之滚动回来的时候，导航还在界面中部。来实现一下吧。</p> <h2 id="js实现"><a href="#js实现" class="header-anchor">#</a> JS实现</h2> <p>不难，首先记录最初导航的位置，然后监听scroll事件控制CSS就好了。说的简单，感觉做了整么长时间的前端，基础都快忘光了，做了好久才实现，其中都是基础不牢固惹的货，看来以后还是要注重基础。</p> <p>话不多说，就是几行代码，优化就不做了。</p> <div class="language- extra-class"><pre class="language-text"><code>        methods: {
+            scrolls () {
+                var header = this.$refs.header.$el   
+                var headerTop = header.offsetTop                             
+                window.onscroll = () =&gt; {
+                    if (document.documentElement.scrollTop &gt; headerTop)
+                        header.style.position = 'fixed'
+                    else
+                        header.style.position = 'static'
+                }
+            }
+        },
+        mounted () {
+            this.scrolls()
+        }
+</code></pre></div><p>对呀，这么简单，为啥还整了一篇随笔呢？别急，那你会用CSS实现吗？</p> <h2 id="css实现"><a href="#css实现" class="header-anchor">#</a> CSS实现</h2> <p>面试时候有人会问，position有那几种值，你说：绝对的、相对的、fixed，能说出这些是不及格的。</p> <p>那你想了想，哦对，还有static，嗯，勉强合格。</p> <p>优秀一点的同学会说还有<code>inherit</code>、<code>initial</code>、<code>unset</code>，嗯不错，挺好，还有吗？</p> <p>这时候你赶紧趁着趁着面试官说话的时机百度了一下，发现还有一个值，<code>sticky</code>，你装作思考了一下说还有一个<code>sticky</code>，面试管觉得你很不错，那你在业务种使用过这个值吗？GG。</p> <p><code>sticky</code>，就叫它粘性定位吧，粘性定位是基于<code>position:relative</code>和<code>position:fixed</code>两者之间的，为什么说介于两者之间呢？粘性定位根据一个阈值来决定，超出阈值之前采用<code>相对定位</code>，超出阈值之后就是<code>fixed定位</code>了。</p> <p>那这个阈值又是什么呢？就是<code>top</code>、<code>right</code>、<code>bottom</code>、<code>left</code>四种之一，也只有这四种之一，才能让粘性定位生效，否则表现为<code>相对定位</code>。</p> <p>相对定位和fixed定位，拿不就完美的解决了我们的问题了吗？没错。来试试吧。</p> <div class="language- extra-class"><pre class="language-text"><code>.header {
+        color: #666;
+        height: 100px;
+        line-height: 100px;
+        position: sticky;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        font-size: 32px;
+        background: #fff url(//m.jr.jd.com/spe/qyy/main/images/jr-logo.png) center center no-repeat;
+        background-size: auto 50%;
+        z-index: 100;
+        border: 1px solid #999;
+        }
+</code></pre></div><p>看看效果：</p> <p><img src="https://images2018.cnblogs.com/blog/1272362/201803/1272362-20180331190842657-2013103911.gif" alt=""></p> <p>和之前使用JS实现的没什么区别，不过有句话说的好，能用CSS的话就别用JS，从性能上来考虑还是<code>粘性定位</code>更好一点。</p> <p>注意了：并且 top 和 bottom 同时设置时，top 生效的优先级高，left 和 right 同时设置时，left 的优先级高。</p> <p>不过美中不足的是：<code>position:sticky</code>的兼容性不太强。</p> <p>如果我们在面试中能说出这样的一个属性及其相关说明，并能给出它具体的业务场景的话，那就相当的不错了。</p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新于:</span> <span class="time">7/31/2020, 6:35:42 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.c4d916ef.js" defer></script><script src="/assets/js/2.7b65586e.js" defer></script><script src="/assets/js/27.0a55d4e3.js" defer></script>
+  </body>
+</html>

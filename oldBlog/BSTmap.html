@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>二叉树的深度优先遍历和广度优先遍历 | Niko&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/icon.png">
+    <meta name="description" content="自我驱动～">
+    <link rel="preload" href="/assets/css/0.styles.e7705c3d.css" as="style"><link rel="preload" href="/assets/js/app.c4d916ef.js" as="script"><link rel="preload" href="/assets/js/2.7b65586e.js" as="script"><link rel="preload" href="/assets/js/13.b30c5e9b.js" as="script"><link rel="prefetch" href="/assets/js/10.fe52b0c7.js"><link rel="prefetch" href="/assets/js/11.1ea010e8.js"><link rel="prefetch" href="/assets/js/12.4fad5f4d.js"><link rel="prefetch" href="/assets/js/14.3d89860c.js"><link rel="prefetch" href="/assets/js/15.1093c3a5.js"><link rel="prefetch" href="/assets/js/16.d78dfee6.js"><link rel="prefetch" href="/assets/js/17.e94f74a9.js"><link rel="prefetch" href="/assets/js/18.04933970.js"><link rel="prefetch" href="/assets/js/19.2cfc6a06.js"><link rel="prefetch" href="/assets/js/20.5af1bca2.js"><link rel="prefetch" href="/assets/js/21.deead1cc.js"><link rel="prefetch" href="/assets/js/22.b167ef02.js"><link rel="prefetch" href="/assets/js/23.93287a34.js"><link rel="prefetch" href="/assets/js/24.2a666b39.js"><link rel="prefetch" href="/assets/js/25.079594fc.js"><link rel="prefetch" href="/assets/js/26.d3c406d8.js"><link rel="prefetch" href="/assets/js/27.0a55d4e3.js"><link rel="prefetch" href="/assets/js/28.4e1c4d5e.js"><link rel="prefetch" href="/assets/js/29.6ad66f6f.js"><link rel="prefetch" href="/assets/js/3.6982cefd.js"><link rel="prefetch" href="/assets/js/30.7f13756b.js"><link rel="prefetch" href="/assets/js/4.927b536d.js"><link rel="prefetch" href="/assets/js/5.b71571d4.js"><link rel="prefetch" href="/assets/js/6.61e89258.js"><link rel="prefetch" href="/assets/js/7.3c739ce6.js"><link rel="prefetch" href="/assets/js/8.89b308a0.js"><link rel="prefetch" href="/assets/js/9.e0fc39fd.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e7705c3d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Niko's blog</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/oldBlog/BSTmap.html" aria-current="page" class="active sidebar-link">二叉树的深度优先遍历和广度优先遍历</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/oldBlog/BSTmap.html#_1-深度优先遍历" class="sidebar-link">1. 深度优先遍历</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BSTmap.html#_2-广度优先遍历" class="sidebar-link">2. 广度优先遍历</a></li></ul></li><li><a href="/oldBlog/BST.html" class="sidebar-link">详细教你实现BST</a></li><li><a href="/oldBlog/functional.html" class="sidebar-link">函数式编程与React高阶组件</a></li><li><a href="/oldBlog/httpCache.html" class="sidebar-link">详解HTTP缓存</a></li><li><a href="/oldBlog/vuediff.html" class="sidebar-link">理解Vue 2.5的Diff算法</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库事务处理的并发控制技术</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>基础业务</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/oldBlog/setState.html" class="sidebar-link">React的setState分析</a></li><li><a href="/oldBlog/virtualDOM.html" class="sidebar-link">Virtual DOM的简单实现</a></li><li><a href="/oldBlog/css.html" class="sidebar-link">多种方法实现左右固定，中间自适应的CSS布局</a></li><li><a href="/oldBlog/interview.html" class="sidebar-link">2017年10月WEB前端开发实习生面试题总结</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端实习生面试题分析</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Redux和React-Redux的实现</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>2018-01-22 14:29，发布于博客园</p> <p><a href="https://www.cnblogs.com/isLiu/p/8328533.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/isLiu/p/8328533.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <p>二叉树是一种很重要的数据结构，对于二叉树的遍历，有深度优先遍历和广度优先遍历，深度优先遍历又有先序、中序、后续遍历，广度优先遍历就是按层遍历。</p> <h2 id="_1-深度优先遍历"><a href="#_1-深度优先遍历" class="header-anchor">#</a> 1. 深度优先遍历</h2> <hr> <p>深度优先遍历，也就是先序、中序、后续遍历，我之前有一篇随笔已经说的很清楚了，在这里我只贴下代码就好了。</p> <p>传送门：<a href="http://www.cnblogs.com/isLiu/p/7919856.html" target="_blank" rel="noopener noreferrer">详细教你实现BST(二叉排序树)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>在这里我依然用之前建立好的Node、Stack、BST结构来实现代码。</p> <div class="language- extra-class"><pre class="language-text"><code>class Node {
+  constructor(data, leftNode, rightNode) {
+    this.data = data
+    this.leftNode = leftNode
+    this.rightNode = rightNode
+  }
+  print () {
+    return this.data
+  }
+}
+
+class Stack {
+  constructor() {
+    this.arr = []
+  }
+  pop () {
+    return this.arr.shift()
+  }
+  push (data) {
+    this.arr.unshift(data)
+  }
+  isEmpty () {
+    return this.arr.length == 0
+  }
+}
+
+class BST {
+  constructor() {
+    this.root = null
+  }
+  insert (data) {...}
+  preOrder () {...}
+  inOrder () {...}
+  postOrder () {...}
+  ...
+}
+</code></pre></div><p>先是先序、中序、后序遍历的递归实现，很简单。</p> <div class="language- extra-class"><pre class="language-text"><code>// 递归先序
+function preOrderFn (node) {
+  if (node) {
+    console.log(node.print())
+    preOrderFn(node.leftNode)
+    preOrderFn(node.rightNode)
+  }
+}
+
+// 递归中序
+function inOrderFn (node) {
+  if (node) {
+    inOrderFn(node.leftNode)
+    console.log(node.print())
+    inOrderFn(node.rightNode)
+  }
+}
+
+// 递归后续
+function postOrderFn (node) {
+  if (node) {
+    postOrderFn (node.leftNode)
+    postOrderFn (node.rightNode)
+    console.log(node.print())
+  }
+}
+</code></pre></div><p>然后就是先序、中序、后续遍历的非递归实现了。详细的解释和说明，点击上面的传送门就有了，这里不过多赘述。</p> <div class="language- extra-class"><pre class="language-text"><code>// 非递归先序
+function PreOrderWithoutRecursion (root) {
+  if (!root)
+    return
+
+  var parentNode = root
+  var stack = new Stack()
+
+  while (parentNode || !stack.isEmpty()) {
+
+    // 一直遍历到左子树的最下面，一边打印data,将一路遍历过的节点push进栈中
+    if (parentNode) {
+      console.log(parentNode.data)
+      stack.push(parentNode)
+      parentNode = parentNode.leftNode
+    }
+    // 当parentNode为空时，说明已经达到了左子树的最下面，可以出栈操作了
+    else {
+      parentNode = stack.pop()
+      // 进入右子树，开始新一轮循环
+      parentNode = parentNode.rightNode
+    }
+  }
+}
+
+// 非递归中序
+function inOrderWithoutRecursion (root) {
+  if (!root)
+    return
+
+  var parentNode = root
+  var stack = new Stack()
+
+  while (parentNode || !stack.isEmpty()) {
+
+    // 一直遍历到左子树的最下面，将一路遍历过的节点push进栈中
+    if (parentNode) {
+      stack.push(parentNode)
+      parentNode = parentNode.leftNode
+    }
+    // 当parentNode为空时，说明已经达到了左子树的最下面，可以出栈操作了
+    else {
+      parentNode = stack.pop()
+      console.log(parentNode.data)
+      // 进入右子树，开始新一轮循环
+      parentNode = parentNode.rightNode
+    }
+  }
+}
+
+// 非递归后续
+function PostOrderWithoutRecursion (root) {
+  if (!root)
+    return
+
+  var parentNode = root
+  var stack = new Stack()
+  var lastVisitNode = null
+
+  while (parentNode || !stack.isEmpty()) {
+    if (parentNode) {
+      stack.push(parentNode)
+      parentNode = parentNode.leftNode
+    }
+    else {
+      parentNode = stack.pop()
+      // 如果当前节点没有右节点或者是右节点被访问过，则访问当前节点
+      if (!parentNode.rightNode || parentNode.rightNode.data == lastVisitNode.data) {
+        console.log(parentNode.data)
+        lastVisitNode = parentNode
+      }
+      // 访问右节点
+      else {
+        stack.push(parentNode)
+        parentNode = parentNode.rightNode
+        while (parentNode) {
+          parentNode = parentNode.leftNode
+        }
+      }
+    }
+  }
+}
+</code></pre></div><h2 id="_2-广度优先遍历"><a href="#_2-广度优先遍历" class="header-anchor">#</a> 2. 广度优先遍历</h2> <hr> <p>其实这片随笔有点打酱油了，只说了两个遍历，还有一个是在以前实现过的。</p> <p>广度优先遍历，顾名思义，就是横向先遍历，也就是按层次遍历，从根节点往下，对每一层依此访问，在每一层中从左到右（也可以从右到左）遍历，遍历完一层就进入下一层，直到没有节点。</p> <p>之前讲深度优先非递归遍历的时候，我们用到了一个栈的数据结构，到了广度优先遍历的时候，我们就要用到队列这个数据结构。</p> <p>为什么上一次用栈，这一次就要用到队列了呢？</p> <p>拿非递归中序遍历举例，我们每遍历到一个节点就要进行入栈操作，遍历完左节点之后，还需要找到根节点，再通过根节点找到右节点，所以我们需要最后遍历到的节点在这个数据结构的最顶端，这不就是栈吗？</p> <p>先把我们的队列的数据结构先建立起来再说。依然用数组模拟队列的操作。</p> <div class="language- extra-class"><pre class="language-text"><code>class Queue {
+  constructor () {
+    this.arr = []
+  }
+  enqueue (data) {
+    return this.arr.push(data)
+  }
+  dequeue () {
+    return this.arr.shift()
+  }
+  isEmpty () {
+    return this.arr.length == 0
+  }
+}
+</code></pre></div><p>为什么要用队列呢，我们按层次遍历，首先遍历根节点，然后左子树，右子树，然后左子树的左子树，左子树的右子树，右子树的左子树，依此类推。每遍历到一个节点，就将它存在一个数据结构里，先把它的前面的节点遍历完，才能遍历它，也就是一个先进先出（FIFO）的遍历方式，这不就是队列吗？</p> <p>说下思路：首先现将根节点做入队操作，队列里的节点表示我们要遍历的节点，所以队列为空的时候也就是没有节点可以遍历了，即队列不为空的时候循环遍历整个队列。首先我们取出队列的第一个节点，也就是对这个队列做出队操作，访问这个节点的值，如果这个节点存在左子树，那么将它的左子树放在队列的末尾，也就是对左子树做入队操作，右子树同理。</p> <p>思路很简单，实现起来不难：</p> <div class="language- extra-class"><pre class="language-text"><code>class BST {
+  constructor() {
+    this.root = null
+  }
+  // 广度优先遍历
+  levelOrderTraversal () {
+    levelOrderTraversalFn(this.root)
+  }
+  insert (data) {...}
+  preOrder () {...}
+  inOrder () {...}
+  postOrder () {...}
+  find (data) {..}
+  getMax () {...}
+  getMin () {...}
+  deleteNode (data) {...}
+  depth () {...}
+  nodeCount () {...}
+}
+
+// 广度优先遍历
+function levelOrderTraversalFn (node) {
+  if(!node) {
+    return
+  }
+
+  var que = new Queue()
+  que.enqueue(node)
+  while(!que.isEmpty()) {
+    node = que.dequeue()
+    console.log(node.data)
+    if(node.leftNode) que.enqueue(node.leftNode)
+    if(node.rightNode) que.enqueue(node.rightNode)
+  }
+}
+</code></pre></div><p>我们试一下：</p> <p><img src="http://images2017.cnblogs.com/blog/1272362/201801/1272362-20180122142255881-1751878691.png" alt=""></p> <p>没错，那我们的广度优先遍历也就写完了。</p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新于:</span> <span class="time">7/31/2020, 6:35:42 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.c4d916ef.js" defer></script><script src="/assets/js/2.7b65586e.js" defer></script><script src="/assets/js/13.b30c5e9b.js" defer></script>
+  </body>
+</html>

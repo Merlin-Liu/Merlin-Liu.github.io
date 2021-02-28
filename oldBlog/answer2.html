@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>前端实习生面试题分析（二） | Niko&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/icon.png">
+    <meta name="description" content="自我驱动～">
+    <link rel="preload" href="/assets/css/0.styles.e7705c3d.css" as="style"><link rel="preload" href="/assets/js/app.c4d916ef.js" as="script"><link rel="preload" href="/assets/js/2.7b65586e.js" as="script"><link rel="preload" href="/assets/js/16.d78dfee6.js" as="script"><link rel="prefetch" href="/assets/js/10.fe52b0c7.js"><link rel="prefetch" href="/assets/js/11.1ea010e8.js"><link rel="prefetch" href="/assets/js/12.4fad5f4d.js"><link rel="prefetch" href="/assets/js/13.b30c5e9b.js"><link rel="prefetch" href="/assets/js/14.3d89860c.js"><link rel="prefetch" href="/assets/js/15.1093c3a5.js"><link rel="prefetch" href="/assets/js/17.e94f74a9.js"><link rel="prefetch" href="/assets/js/18.04933970.js"><link rel="prefetch" href="/assets/js/19.2cfc6a06.js"><link rel="prefetch" href="/assets/js/20.5af1bca2.js"><link rel="prefetch" href="/assets/js/21.deead1cc.js"><link rel="prefetch" href="/assets/js/22.b167ef02.js"><link rel="prefetch" href="/assets/js/23.93287a34.js"><link rel="prefetch" href="/assets/js/24.2a666b39.js"><link rel="prefetch" href="/assets/js/25.079594fc.js"><link rel="prefetch" href="/assets/js/26.d3c406d8.js"><link rel="prefetch" href="/assets/js/27.0a55d4e3.js"><link rel="prefetch" href="/assets/js/28.4e1c4d5e.js"><link rel="prefetch" href="/assets/js/29.6ad66f6f.js"><link rel="prefetch" href="/assets/js/3.6982cefd.js"><link rel="prefetch" href="/assets/js/30.7f13756b.js"><link rel="prefetch" href="/assets/js/4.927b536d.js"><link rel="prefetch" href="/assets/js/5.b71571d4.js"><link rel="prefetch" href="/assets/js/6.61e89258.js"><link rel="prefetch" href="/assets/js/7.3c739ce6.js"><link rel="prefetch" href="/assets/js/8.89b308a0.js"><link rel="prefetch" href="/assets/js/9.e0fc39fd.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e7705c3d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Niko's blog</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/oldBlog/BSTmap.html" class="sidebar-link">二叉树的深度优先遍历和广度优先遍历</a></li><li><a href="/oldBlog/BST.html" class="sidebar-link">详细教你实现BST</a></li><li><a href="/oldBlog/functional.html" class="sidebar-link">函数式编程与React高阶组件</a></li><li><a href="/oldBlog/httpCache.html" class="sidebar-link">详解HTTP缓存</a></li><li><a href="/oldBlog/vuediff.html" class="sidebar-link">理解Vue 2.5的Diff算法</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库事务处理的并发控制技术</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>基础业务</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/oldBlog/setState.html" class="sidebar-link">React的setState分析</a></li><li><a href="/oldBlog/virtualDOM.html" class="sidebar-link">Virtual DOM的简单实现</a></li><li><a href="/oldBlog/css.html" class="sidebar-link">多种方法实现左右固定，中间自适应的CSS布局</a></li><li><a href="/oldBlog/interview.html" class="sidebar-link">2017年10月WEB前端开发实习生面试题总结</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>前端实习生面试题分析</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/oldBlog/answer1.html" class="sidebar-link">前端实习生面试题分析（一）</a></li><li><a href="/oldBlog/answer2.html" aria-current="page" class="active sidebar-link">前端实习生面试题分析（二）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/oldBlog/answer2.html#_1-实现一个trim函数" class="sidebar-link">1.实现一个trim函数</a></li><li class="sidebar-sub-header"><a href="/oldBlog/answer2.html#_2-call、apply、bind之间的区别" class="sidebar-link">2.call、apply、bind之间的区别</a></li><li class="sidebar-sub-header"><a href="/oldBlog/answer2.html#_3-用call或者apply实现一个bind函数" class="sidebar-link">3.用call或者apply实现一个bind函数</a></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Redux和React-Redux的实现</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>2017-11-19 17:52，发布于博客园</p> <p><a href="https://www.cnblogs.com/isLiu/p/7859669.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/isLiu/p/7859669.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <p>本篇是关于手写代码的题目。</p> <h2 id="_1-实现一个trim函数"><a href="#_1-实现一个trim函数" class="header-anchor">#</a> 1.实现一个trim函数</h2> <p>关于性能的写法也不多说了，只是用最直观的写法来写一下，使用正则有大概五六种写法，感兴趣可以自己去研究下，推荐《高性能JavaScript》</p> <p>1.正则实现</p> <ul><li>trim</li></ul> <div class="language- extra-class"><pre class="language-text"><code>       String.prototype.trim = function () {
+　　    return this.replace(/(^\s*)|(\s*$)/g, &quot;&quot;);
+　　}
+</code></pre></div><ul><li>leftTrim</li></ul> <div class="language- extra-class"><pre class="language-text"><code>       String.prototype.leftTrim = function () {
+　　    return this.replace(/(^\s*)/g,&quot;&quot;);
+　　}
+</code></pre></div><ul><li>rightTrim</li></ul> <div class="language- extra-class"><pre class="language-text"><code>       String.prototype.rightTrim = function () {
+　　    return this.replace(/(\s*$)/g,&quot;&quot;);
+　　}
+</code></pre></div><p>2.非正则实现</p> <ul><li>trim</li></ul> <div class="language- extra-class"><pre class="language-text"><code>	String.prototype.trim = function () {
+         var start = 0,			
+             end = this.length - 1,
+             ws = /\s/			
+	    while (ws.indexOf(this.charAt(start)) &gt; -1) {
+            start ++
+	    }
+	    while (end &gt; start &amp;&amp; ws.indexOf(this.charAt(end)) &gt; -1) {
+            end --
+	    }
+	    return this.slice(start, end + 1)　　 
+	 }
+</code></pre></div><ul><li>leftTrim</li></ul> <div class="language- extra-class"><pre class="language-text"><code>	String.prototype.leftTrim = function () {
+		var start = 0,			
+		     end = this.length - 1,
+		     ws = /\s/			
+		while (ws.indexOf(this.charAt(start)) &gt; -1) {
+			 start ++
+	 	}
+		return this.slice(start, end)
+　}
+</code></pre></div><ul><li>rightTrim</li></ul> <div class="language- extra-class"><pre class="language-text"><code>	String.prototype.rightTrim = function () {
+		var start = 0,			
+		     end = this.length - 1,
+		     ws = /\s/			
+		while (end &gt; start &amp;&amp; ws.indexOf(this.charAt(end)) &gt; -1) {
+			end --
+		}
+		return this.slice(start, end + 1)
+　}
+</code></pre></div><p>3.混合实现</p> <p>当字符串的末尾只有一小段空白时候，正则表达式会陷入疯狂工作状态；而通过循环遍历字符串的效率也比不上正则表达式，所以有了这种混合模式</p> <div class="language- extra-class"><pre class="language-text"><code>	String.prototype.trim = function () {
+		var str = this.replace(/^\s+/, '')
+				end = str.length - 1
+				ws = /\s/
+		while (ws.test(str.charAt(end))) {
+			end --
+		}
+		return str.slice(0, end + 1)
+　}
+</code></pre></div><hr> <h2 id="_2-call、apply、bind之间的区别"><a href="#_2-call、apply、bind之间的区别" class="header-anchor">#</a> 2.call、apply、bind之间的区别</h2> <p>总之三种方法都是改变函数内this的指向</p> <p>1.fn.call (context, arg1, arg2, .....)</p> <p>call中第一个参数是fn的上下文，剩下的参数就是需要向fn中传递的参数</p> <p>2.fn.apply (context, [args])</p> <p>apply同call类似，第一个参数也是fn的上下文，和call不同的是，apply第二个参数是数组，call的第二个及第二个以后的参数都是数组里面的元素</p> <p>3.fn.bind (context)</p> <p>bind会创建一个函数，称之为绑定函数，调用这个函数时，绑定函数会以创建它是bind方法传入的第一个参数作为自己的上下文，第二个及第二个以后的参数并且加上绑定函数运行时传递进来的参数作为原函数的参数来调用原函数。 （有点绕哈，不过对下一道题有帮助）</p> <p>4.call、apply、bind最大的区别就是bind不会立即调用，会返回一个函数，apply、call会立即调用。</p> <hr> <h2 id="_3-用call或者apply实现一个bind函数"><a href="#_3-用call或者apply实现一个bind函数" class="header-anchor">#</a> 3.用call或者apply实现一个bind函数</h2> <p>看看上面的bind定义吧，不多说了</p> <div class="language- extra-class"><pre class="language-text"><code>if (!Function.prototype.bind) {
+  Function.prototype.bind = function (oThis) {
+    if (typeof this !== &quot;function&quot;) {
+      throw new TypeError(&quot;Function.prototype.bind - what is trying to be bound is not callable&quot;);
+    }
+
+    var aArgs = Array.prototype.slice.call(arguments, 1), 
+        fToBind = this, 
+        fNOP = function () {},
+        fBound = function () {
+          return fToBind.apply(this instanceof fNOP &amp;&amp; oThis
+                                 ? this
+                                 : oThis || window,
+                               aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+
+    fNOP.prototype = this.prototype;
+    fBound.prototype = new fNOP();
+
+    return fBound;
+  };
+}
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新于:</span> <span class="time">7/31/2020, 6:35:42 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.c4d916ef.js" defer></script><script src="/assets/js/2.7b65586e.js" defer></script><script src="/assets/js/16.d78dfee6.js" defer></script>
+  </body>
+</html>

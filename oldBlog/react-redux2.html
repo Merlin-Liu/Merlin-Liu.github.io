@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Provider组件和connect的实现 | Niko&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/icon.png">
+    <meta name="description" content="自我驱动～">
+    <link rel="preload" href="/assets/css/0.styles.e7705c3d.css" as="style"><link rel="preload" href="/assets/js/app.c4d916ef.js" as="script"><link rel="preload" href="/assets/js/2.7b65586e.js" as="script"><link rel="preload" href="/assets/js/24.2a666b39.js" as="script"><link rel="prefetch" href="/assets/js/10.fe52b0c7.js"><link rel="prefetch" href="/assets/js/11.1ea010e8.js"><link rel="prefetch" href="/assets/js/12.4fad5f4d.js"><link rel="prefetch" href="/assets/js/13.b30c5e9b.js"><link rel="prefetch" href="/assets/js/14.3d89860c.js"><link rel="prefetch" href="/assets/js/15.1093c3a5.js"><link rel="prefetch" href="/assets/js/16.d78dfee6.js"><link rel="prefetch" href="/assets/js/17.e94f74a9.js"><link rel="prefetch" href="/assets/js/18.04933970.js"><link rel="prefetch" href="/assets/js/19.2cfc6a06.js"><link rel="prefetch" href="/assets/js/20.5af1bca2.js"><link rel="prefetch" href="/assets/js/21.deead1cc.js"><link rel="prefetch" href="/assets/js/22.b167ef02.js"><link rel="prefetch" href="/assets/js/23.93287a34.js"><link rel="prefetch" href="/assets/js/25.079594fc.js"><link rel="prefetch" href="/assets/js/26.d3c406d8.js"><link rel="prefetch" href="/assets/js/27.0a55d4e3.js"><link rel="prefetch" href="/assets/js/28.4e1c4d5e.js"><link rel="prefetch" href="/assets/js/29.6ad66f6f.js"><link rel="prefetch" href="/assets/js/3.6982cefd.js"><link rel="prefetch" href="/assets/js/30.7f13756b.js"><link rel="prefetch" href="/assets/js/4.927b536d.js"><link rel="prefetch" href="/assets/js/5.b71571d4.js"><link rel="prefetch" href="/assets/js/6.61e89258.js"><link rel="prefetch" href="/assets/js/7.3c739ce6.js"><link rel="prefetch" href="/assets/js/8.89b308a0.js"><link rel="prefetch" href="/assets/js/9.e0fc39fd.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e7705c3d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Niko's blog</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/oldBlog/BSTmap.html" class="sidebar-link">二叉树的深度优先遍历和广度优先遍历</a></li><li><a href="/oldBlog/BST.html" class="sidebar-link">详细教你实现BST</a></li><li><a href="/oldBlog/functional.html" class="sidebar-link">函数式编程与React高阶组件</a></li><li><a href="/oldBlog/httpCache.html" class="sidebar-link">详解HTTP缓存</a></li><li><a href="/oldBlog/vuediff.html" class="sidebar-link">理解Vue 2.5的Diff算法</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库事务处理的并发控制技术</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>基础业务</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/oldBlog/setState.html" class="sidebar-link">React的setState分析</a></li><li><a href="/oldBlog/virtualDOM.html" class="sidebar-link">Virtual DOM的简单实现</a></li><li><a href="/oldBlog/css.html" class="sidebar-link">多种方法实现左右固定，中间自适应的CSS布局</a></li><li><a href="/oldBlog/interview.html" class="sidebar-link">2017年10月WEB前端开发实习生面试题总结</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端实习生面试题分析</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Redux和React-Redux的实现</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/oldBlog/react-redux1.html" class="sidebar-link">Redux的实现和context</a></li><li><a href="/oldBlog/react-redux2.html" aria-current="page" class="active sidebar-link">Provider组件和connect的实现</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/oldBlog/react-redux2.html#_1-provider组件的实现" class="sidebar-link">1. Provider组件的实现</a></li><li class="sidebar-sub-header"><a href="/oldBlog/react-redux2.html#_2-connect方法" class="sidebar-link">2. connect方法</a></li><li class="sidebar-sub-header"><a href="/oldBlog/react-redux2.html#_3-mapstatetoprops的实现" class="sidebar-link">3. mapStateToProps的实现</a></li><li class="sidebar-sub-header"><a href="/oldBlog/react-redux2.html#_4-mapdispatchtoprops的实现" class="sidebar-link">4. mapDispatchToProps的实现</a></li></ul></li><li><a href="/oldBlog/react-redux3.html" class="sidebar-link">中间件的原理和applyMiddleware、Thunk的实现</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>2017-12-27 23:05，发布于博客园</p> <p><a href="https://www.cnblogs.com/isLiu/p/8119861.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/isLiu/p/8119861.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <p>接着上一篇讲，上一篇我们实现了自己的Redux和介绍了React的context以及Provider的原理。</p> <h2 id="_1-provider组件的实现"><a href="#_1-provider组件的实现" class="header-anchor">#</a> 1. Provider组件的实现</h2> <hr> <p>Provider组件主要有以下下两个作用</p> <ol><li>在整个应用上包一层，使整个应用成为Provider的子组件</li> <li>接收Redux的store作为props，通过context对象传递给子组件，所有的子组件都可以取得store</li></ol> <p>首先我们要知道，Provider组件的任务是将stroe传递给子组件，它只是一个传递数据的组件，只需要将子组件展示出来就好。</p> <div class="language- extra-class"><pre class="language-text"><code>import React from 'react'
+import PropTypes from 'prop-types'
+
+export class Provider extends React.Component{
+	static childContextTypes = {
+		store: PropTypes.object
+	}
+	getChildContext(){
+		return {store:this.store}
+	}
+	constructor(props, context){
+		super(props, context)
+		this.store = props.store
+	}
+	render(){
+		return this.props.children
+	}
+}
+</code></pre></div><h2 id="_2-connect方法"><a href="#_2-connect方法" class="header-anchor">#</a> 2. connect方法</h2> <hr> <p>connect的作用就是将React和Redux中的store连接起来</p> <p>首先要明确它的任务：</p> <ol><li>接收一个组件，将Redux中的store通过props传递给组件</li> <li>将Redux中的action也通过props传递给组件</li> <li>返回一个新的组件，这个组件可以通过this.props访问到store中的属性，也可能是触发action</li> <li>当store中的数据发生变化的时候，通知新的组件</li></ol> <p>根据它的任务就能知道，它是一个高阶函数</p> <h3 id="connect方法定义"><a href="#connect方法定义" class="header-anchor">#</a> connect方法定义</h3> <p>官方给出connect的定义：</p> <div class="language- extra-class"><pre class="language-text"><code>connect([mapStateToProps],  [mapDispatchToProps],  [mergeProps],  [options])
+</code></pre></div><p>非常好理解了，在React-Redux中，我们常用的就是前两个参数。</p> <h3 id="mapstatetoprops"><a href="#mapstatetoprops" class="header-anchor">#</a> mapStateToProps</h3> <p>这个函数帮助我们将store中的数据作为props传递给组件，也就是实现了connect方法的第一个任务</p> <div class="language- extra-class"><pre class="language-text"><code>mapStateToProps(state, ownProps) : stateProps
+</code></pre></div><ol><li>mapStateToProps的第一个参数就是Redux的store</li> <li>第二个参数就是自己的props，也可已将自己的props和store merge到一起传递给组件</li></ol> <p>我们经常这么使用mapStateToProps</p> <div class="language- extra-class"><pre class="language-text"><code>state=&gt;({ num: state})
+</code></pre></div><p>或者这样只获取我们当前需要的属性</p> <div class="language- extra-class"><pre class="language-text"><code>const mapStateToProps = (state) =&gt; {
+  return {
+    num: state.num
+  }
+}
+</code></pre></div><h3 id="mapdispatchtoprops"><a href="#mapdispatchtoprops" class="header-anchor">#</a> mapDispatchToProps</h3> <p>这个函数的会将action以props的形式传递给组件，组件可用this.props触发相应action，也就是完成了上面的第二个任务。</p> <div class="language- extra-class"><pre class="language-text"><code>mapDispatchToProps(dispatch, ownProps): dispatchProps
+</code></pre></div><p>这个函数返回的是装有action的对象，通常我们直接给它赋值成一个对象，再把我们的action放进去。</p> <div class="language- extra-class"><pre class="language-text"><code>import { add, remove, addAsync } from './index.redux'
+mapDispatchToProps = { add, remove, addAsync  }
+</code></pre></div><p>从这里看好像是完成了我们的任务，但是注意：在我们的组件可以通过this.props触发相应的action，但是还没有dispatch，所以只返回了一个type，所以上面的代码并不是正确的，只是便于大家理解。</p> <p>我们还需要dispatch一下action，下面才是正确的代码：</p> <div class="language- extra-class"><pre class="language-text"><code>const mapDispatchToProps = (dispatch, ownProps) =&gt; {
+  return {
+    add: (...args) =&gt; dispatch(actions.add(...args)),
+    remove: (...args) =&gt; dispatch(actions.remove(...args)),
+    addAsync: (...args) =&gt; dispatch(actions.addAsync(...args))
+  }
+}
+</code></pre></div><p>有人会问，我用React-Redux的connect时，这个参数直接穿的是action对象呀，怎么回事？</p> <p>这是因为在connect内部使用了Redux提供的bindActionCreators方法，在connect内部将所有的action都dispatch了。我们实现的时候，也需要实现这个bindActionCreators方法。</p> <h3 id="mergeprops"><a href="#mergeprops" class="header-anchor">#</a> mergeProps</h3> <p>mergeProps顾名思义，就是将stateProps、dispatchProps、ownProps合并起来。</p> <p>如果不指定mergeProps，默认用Object.assign</p> <div class="language- extra-class"><pre class="language-text"><code>function mergeProps(stateProps, dispatchProps, ownProps) {
+  return Object.assign({}, ownProps, {
+    num: stateProps.num,
+    add: () =&gt; dispatchProps.add(),
+    remove: () =&gt; dispatchProps.remove(),
+    addAsync: () =&gt; dispatchProps.addAsync(),
+  })
+}
+</code></pre></div><h3 id="options"><a href="#options" class="header-anchor">#</a> options</h3> <p>规定connector的行为，通常我们使用默认值。</p> <h3 id="connect方法的使用"><a href="#connect方法的使用" class="header-anchor">#</a> connect方法的使用</h3> <p>我们常见的写法，也就是ES7的decorator装饰器，也就是装饰者模式，这种写法比较简便：</p> <div class="language- extra-class"><pre class="language-text"><code>@connect(
+  state=&gt;({ num: state}),
+  { add, remove, addAsync }
+)
+class App extends React.Component{
+  render(){
+    return (
+      &lt;div&gt;
+        &lt;h2&gt;现在有物品{this.props.num}件&lt;/h2&gt;
+        &lt;button onClick={this.props.add}&gt;add&lt;/button&gt;
+        &lt;button onClick={this.props.remove}&gt;remove&lt;/button&gt;
+        &lt;button onClick={this.props.addAsync}&gt;addAsync&lt;/button&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+export default App;
+</code></pre></div><p>或者是更容易理解的高阶函数的写法：</p> <div class="language- extra-class"><pre class="language-text"><code>class App extends React.Component{
+  render(){
+    return (
+      &lt;div&gt;
+        &lt;h2&gt;现在有物品{this.props.num}件&lt;/h2&gt;
+        &lt;button onClick={this.props.add}&gt;add&lt;/button&gt;
+        &lt;button onClick={this.props.remove}&gt;remove&lt;/button&gt;
+        &lt;button onClick={this.props.addAsync}&gt;addAsync&lt;/button&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+App = connect(
+    state =&gt; ({num: state),
+    { add, remove, addAsync }
+)(App)
+</code></pre></div><p>第二中写法我们可以更好的理解connect函数如何工作：connect接受了它的四个参数，然后返回了一个高阶组件，高阶组件需要接收一个组件作为参数，在高阶组件中通过处理被传入的组件，其中用到了connect的四个参数，最后将处理后的组件返回出去。</p> <h2 id="_3-mapstatetoprops的实现"><a href="#_3-mapstatetoprops的实现" class="header-anchor">#</a> 3. mapStateToProps的实现</h2> <hr> <p>connect方法返回了一个函数，函数里返回了一个组件，有两次返回，这里我们用两层箭头函数：</p> <div class="language- extra-class"><pre class="language-text"><code>export const connect = (mapStateToProps = (state) =&gt; state, mapDispatchToProps={}) =&gt; (WrapComponent) =&gt; {
+  return class ConnectComponent extends React.Component{
+
+  }
+}
+</code></pre></div><p>它等价于这种写法：</p> <div class="language- extra-class"><pre class="language-text"><code>export function connect (mapStateToProps = (state) =&gt; state, mapDispatchToProps={}) {
+  return function (WrapComponent) {
+    return class ConnectComponent extends React.Component{
+
+    }
+  }
+}
+</code></pre></div><p>双层箭头函数更加简洁，也算是编写高阶函数的一个技巧吧。</p> <p>mapStateToProps的任务已经明确，先接收一个，获取Redux中的store，将stroe通过props传递给组件，代码如下：</p> <div class="language- extra-class"><pre class="language-text"><code>import React from 'react'
+import PropTypes from 'prop-types'
+
+export const connect = (mapStateToProps = (state) =&gt; state, mapDispatchToProps={}) =&gt; (WrapComponent) =&gt; {
+  return class ConnectComponent extends React.Component{
+    static contextTypes = {
+      store: PropTypes.object
+    }
+    constructor (props, context) {
+      super(props, context)
+      this.state = {
+        props: {}
+      }
+    }
+    componentDidMount () {
+      const {store} = this.context
+      this.update()
+      store.subscribe(()=&gt;this.update())
+    }
+    update () {
+      const { store } = this.context
+      const stateProps = mapStateToProps(store.getState())
+      this.setState({
+        props: {
+          ...this.state.props,
+          ...stateProps
+        }
+      })
+    }
+    render () {
+      return &lt;WrapComponent {...this.props}/&gt;
+    }
+  }
+}
+</code></pre></div><p>很明确，我们先用context获取了Provider组件传递过来的store然后将this.props与store中的属性merge成一个新的this.props传递给组件，组件mount的时候用store.subscribe监听了store内数据的变化，从而实时通知组件，完成了connect的第四个任务。</p> <h2 id="_4-mapdispatchtoprops的实现"><a href="#_4-mapdispatchtoprops的实现" class="header-anchor">#</a> 4. mapDispatchToProps的实现</h2> <hr> <p>介绍mapDispatchToProps的是有也说了，传递进来的action不能直接使用，需要dispatch一下，Redux提供了一个bindActionCreators方法，同样我们也在自己的Reudx中实现这个方法。</p> <p>接着上面的代码来写</p> <div class="language- extra-class"><pre class="language-text"><code>import React from 'react'
+import PropTypes from 'prop-types'
+import {bindActionCreators} from './myRedux'
+
+export const connect = (mapStateToProps=state=&gt;state,mapDispatchToProps={})=&gt;(WrapComponent)=&gt;{
+	return class ConnectComponent extends React.Component{
+		static contextTypes = {
+			store:PropTypes.object
+		}
+		constructor(props, context){
+			super(props, context)
+			this.state = {
+				props:{}
+			}
+		}
+		componentDidMount(){
+			const {store} = this.context
+			store.subscribe(()=&gt;this.update())
+			this.update()
+		}
+		update(){
+			const {store} = this.context
+			const stateProps = mapStateToProps(store.getState())
+			const dispatchProps = bindActionCreators(mapDispatchToProps, store.dispatch)
+			this.setState({
+				props:{
+					...this.state.props,
+					...stateProps,
+					...dispatchProps	
+				}
+			})
+		}
+		render(){
+			return &lt;WrapComponent {...this.state.props}&gt;&lt;/WrapComponent&gt;
+		}
+	}
+}
+</code></pre></div><p>这个很简单，主要的就是bindActionCreators方法，写在我们自己的Redux中</p> <div class="language- extra-class"><pre class="language-text"><code>function bindActionCreator(creator, dispatch){
+	return (...args) =&gt; dispatch(creator(...args))
+}
+export function bindActionCreators(creators, dispatch){
+	return Object.keys(creators).reduce((ret,item)=&gt;{
+		ret[item] = bindActionCreator(creators[item],dispatch)
+		return ret
+	},{})
+}
+</code></pre></div><p>也不是很难理解，遍历对象中的所有action，每个action都dispatch一下，返回每一个dispatch之后的action。</p> <p>比如之前的add方法为：add(args)，现在的add方法是：store.dispatch(add(args))</p> <hr> <p>现在我们的Provider组件和connect高阶函数已经实现，下一篇我们实现Redux的中间件。</p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新于:</span> <span class="time">7/31/2020, 6:35:42 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.c4d916ef.js" defer></script><script src="/assets/js/2.7b65586e.js" defer></script><script src="/assets/js/24.2a666b39.js" defer></script>
+  </body>
+</html>

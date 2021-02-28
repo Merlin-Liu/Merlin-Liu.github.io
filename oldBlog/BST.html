@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>详细教你实现BST | Niko&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/icon.png">
+    <meta name="description" content="自我驱动～">
+    <link rel="preload" href="/assets/css/0.styles.e7705c3d.css" as="style"><link rel="preload" href="/assets/js/app.c4d916ef.js" as="script"><link rel="preload" href="/assets/js/2.7b65586e.js" as="script"><link rel="preload" href="/assets/js/12.4fad5f4d.js" as="script"><link rel="prefetch" href="/assets/js/10.fe52b0c7.js"><link rel="prefetch" href="/assets/js/11.1ea010e8.js"><link rel="prefetch" href="/assets/js/13.b30c5e9b.js"><link rel="prefetch" href="/assets/js/14.3d89860c.js"><link rel="prefetch" href="/assets/js/15.1093c3a5.js"><link rel="prefetch" href="/assets/js/16.d78dfee6.js"><link rel="prefetch" href="/assets/js/17.e94f74a9.js"><link rel="prefetch" href="/assets/js/18.04933970.js"><link rel="prefetch" href="/assets/js/19.2cfc6a06.js"><link rel="prefetch" href="/assets/js/20.5af1bca2.js"><link rel="prefetch" href="/assets/js/21.deead1cc.js"><link rel="prefetch" href="/assets/js/22.b167ef02.js"><link rel="prefetch" href="/assets/js/23.93287a34.js"><link rel="prefetch" href="/assets/js/24.2a666b39.js"><link rel="prefetch" href="/assets/js/25.079594fc.js"><link rel="prefetch" href="/assets/js/26.d3c406d8.js"><link rel="prefetch" href="/assets/js/27.0a55d4e3.js"><link rel="prefetch" href="/assets/js/28.4e1c4d5e.js"><link rel="prefetch" href="/assets/js/29.6ad66f6f.js"><link rel="prefetch" href="/assets/js/3.6982cefd.js"><link rel="prefetch" href="/assets/js/30.7f13756b.js"><link rel="prefetch" href="/assets/js/4.927b536d.js"><link rel="prefetch" href="/assets/js/5.b71571d4.js"><link rel="prefetch" href="/assets/js/6.61e89258.js"><link rel="prefetch" href="/assets/js/7.3c739ce6.js"><link rel="prefetch" href="/assets/js/8.89b308a0.js"><link rel="prefetch" href="/assets/js/9.e0fc39fd.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e7705c3d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Niko's blog</span></a> <div class="links"><!----> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link">
+  Blog
+</a></div><div class="nav-item"><a href="/oldBlog/" class="nav-link router-link-active">
+  Old blog
+</a></div><div class="nav-item"><a href="https://github.com/Merlin-Liu" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  My GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/oldBlog/BSTmap.html" class="sidebar-link">二叉树的深度优先遍历和广度优先遍历</a></li><li><a href="/oldBlog/BST.html" aria-current="page" class="active sidebar-link">详细教你实现BST</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_1-二叉排序树的定义" class="sidebar-link">1. 二叉排序树的定义</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_2-创建一个二叉排序树" class="sidebar-link">2. 创建一个二叉排序树</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_3-二叉排序树的插入" class="sidebar-link">3. 二叉排序树的插入</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_4-递归遍历二叉排序树" class="sidebar-link">4. 递归遍历二叉排序树</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_5-非递归中序遍历二叉排序树" class="sidebar-link">5.非递归中序遍历二叉排序树</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_6-非递归先序遍历二叉排序树" class="sidebar-link">6.非递归先序遍历二叉排序树</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_7-非递归后序遍历二叉排序树" class="sidebar-link">7.非递归后序遍历二叉排序树</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_8-二叉排序树的查找" class="sidebar-link">8.二叉排序树的查找</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_9-二叉排序树的删除" class="sidebar-link">9.二叉排序树的删除</a></li><li class="sidebar-sub-header"><a href="/oldBlog/BST.html#_10-其他方法" class="sidebar-link">10.其他方法</a></li></ul></li><li><a href="/oldBlog/functional.html" class="sidebar-link">函数式编程与React高阶组件</a></li><li><a href="/oldBlog/httpCache.html" class="sidebar-link">详解HTTP缓存</a></li><li><a href="/oldBlog/vuediff.html" class="sidebar-link">理解Vue 2.5的Diff算法</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库事务处理的并发控制技术</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>基础业务</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/oldBlog/setState.html" class="sidebar-link">React的setState分析</a></li><li><a href="/oldBlog/virtualDOM.html" class="sidebar-link">Virtual DOM的简单实现</a></li><li><a href="/oldBlog/css.html" class="sidebar-link">多种方法实现左右固定，中间自适应的CSS布局</a></li><li><a href="/oldBlog/interview.html" class="sidebar-link">2017年10月WEB前端开发实习生面试题总结</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端实习生面试题分析</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Redux和React-Redux的实现</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>2017-12-02 14:46，发布于博客园</p> <p><a href="https://www.cnblogs.com/isLiu/p/7919856.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/isLiu/p/7919856.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <p>查找基本分类如下：</p> <ol><li><p>线性表的查找</p> <ul><li>顺序查找</li> <li>折半查找</li> <li>分块查找</li></ul></li> <li><p>树表的查找</p> <ul><li>二叉排序树</li> <li>平衡二叉树</li> <li>B树</li> <li>B+树</li></ul></li> <li><p>散列表的查找</p></li></ol> <p>今天介绍<strong>二叉排序树</strong>。</p> <p><strong>二叉排序树</strong> ( Binary Sort Tree ) 又称为<strong>二叉查找树</strong>，它是一种对排序和查找都很有用的特殊二叉树。</p> <h2 id="_1-二叉排序树的定义"><a href="#_1-二叉排序树的定义" class="header-anchor">#</a> 1. 二叉排序树的定义</h2> <hr> <p>二叉排序树是具有如下性质的二叉树：</p> <ol><li>若它的左子树不为空，则左子树上所有节点的值均小于它的根节点的值。</li> <li>若它的右子树不为空，则右子树上的所有节点的值均大于它的根节点的值。</li> <li>它的左子树、右子树也均为二叉排序树。</li></ol> <p>二叉排序树是递归定义的。所以可以得出二叉排序树的一个重要性质：<strong>中序遍历一棵二叉排序树时可以得到一个节点值递增的有序序列</strong>。</p> <p><img src="https://images2018.cnblogs.com/blog/1272362/201711/1272362-20171129130416769-173940461.png" alt=""></p> <p>若中序遍历上图二叉树，则可以得到一个按数值大小排序的递增序列：<code>3，12，24，37，45，53，61，78，90，100</code></p> <h2 id="_2-创建一个二叉排序树"><a href="#_2-创建一个二叉排序树" class="header-anchor">#</a> 2. 创建一个二叉排序树</h2> <hr> <p>二叉树是由节点构成，所以我们需要一个Node类，node实例保存当前节点的数据，以及保存左右节点的指针，还可以输出当前节点数据。</p> <div class="language- extra-class"><pre class="language-text"><code>  class Node {
+    constructor(data, leftNode, rightNode) {
+      this.data = data
+      this.leftNode = leftNode
+      this.rightNode = rightNode
+    }
+    print () {
+      return this.data
+    }
+  }
+</code></pre></div><p>二叉排序树有一个根节点，根节点存储了根节点的数据，左右子节点的地址，还有相应的实例方法，提供插入、遍历、查找等操作。</p> <div class="language- extra-class"><pre class="language-text"><code>  class BST {
+    constructor() {
+      this.root = null
+    }
+    
+    insert (data) {...}
+    preOrder () {...}
+    inOrder () {...}
+    postOrder () {...}
+    ...
+  }
+</code></pre></div><h2 id="_3-二叉排序树的插入"><a href="#_3-二叉排序树的插入" class="header-anchor">#</a> 3. 二叉排序树的插入</h2> <hr> <p>我们要根据二叉排序树树的性质来决定insert的data的位置</p> <ol><li><p>若当前是一棵空树，则将插入的数据作为根节点</p></li> <li><p>若不是空树，循环遍历二叉排序树的节点</p> <ul><li>若当前遍历的节点的data大于要插入的data，则将下一个要遍历的节点赋值为当前遍历的节点的左节点，进行下一层循环，直到叶子节点为止，将data作为叶子节点的左节点</li> <li>若当前遍历的节点的data小于要插入的data，则将下一个要遍历的节点赋值为当前遍历的节点的右节点，进行下一层循环，直到叶子节点为止，将data作为叶子节点的右节点</li></ul></li></ol> <p>还是代码直观</p> <div class="language- extra-class"><pre class="language-text"><code>  function insert (data) {
+    if (this.find(data)) {
+        return
+    }
+
+    var node = new Node(data, null, null)
+    if (this.root == null) {
+      this.root = node
+    } else {
+      var currentNode = this.root
+      var parentNode
+      while (currentNode) {
+        parentNode = currentNode
+        if (data &lt; currentNode.data) {
+          currentNode = currentNode.leftNode
+          if (currentNode == null) {
+            parentNode.leftNode = node
+            break
+          }
+        } else {
+          currentNode = currentNode.rightNode
+          if (currentNode == null) {
+            parentNode.rightNode = node
+            break
+          }
+        }
+      }
+    }
+  }
+</code></pre></div><h2 id="_4-递归遍历二叉排序树"><a href="#_4-递归遍历二叉排序树" class="header-anchor">#</a> 4. 递归遍历二叉排序树</h2> <hr> <p>简单，贴下代码，重点在非递归遍历</p> <div class="language- extra-class"><pre class="language-text"><code>  class BST {
+    constructor() {
+      this.data = null
+    }
+    
+    preOrder () {
+      preOrderFn(this.root)
+    }
+    inOrder () {
+      inOrderFn(this.root)
+    }
+    postOrder () {
+      postOrderFn(this.root)
+    }
+  }
+  
+  function preOrderFn (node) {
+    if (node) {
+      console.log(node.print())
+      preOrderFn(node.leftNode)
+      preOrderFn(node.rightNode)
+    }
+  }
+  function inOrderFn (node) {
+    if (node) {
+      inOrderFn(node.leftNode)
+      console.log(node.print())
+      inOrderFn(node.rightNode)
+    }
+  }
+  function postOrderFn (node) {
+    postOrderFn (node.leftNode)
+    postOrderFn (node.rightNode)
+    console.log(node.print())
+  }
+</code></pre></div><h2 id="_5-非递归中序遍历二叉排序树"><a href="#_5-非递归中序遍历二叉排序树" class="header-anchor">#</a> 5.非递归中序遍历二叉排序树</h2> <hr> <p>中序遍历的非递归算法最简单，后序遍历的非递归算法最难，所以先介绍中序遍历。</p> <p>非递归遍历一定要用到栈。</p> <div class="language- extra-class"><pre class="language-text"><code>  class Stack {
+    constructor() {
+      this.arr = []
+    }
+    pop () {
+      return this.arr.shift()
+    }
+    push (data) {
+      this.arr.unshift(data)
+    }
+    isEmpty () {
+      return this.arr.length == 0
+    }
+  }
+</code></pre></div><p>我们一点一点写想，中序遍历，肯定是要先找到左子树最下面的节点吧？想不明白就好好想想。</p> <div class="language- extra-class"><pre class="language-text"><code>  function inOrderWithoutRecursion (root) {
+    var parentNode = root
+    var stack = new Stack()
+
+    // 一直遍历到左子树的最下面，将一路遍历过的节点push进栈中
+    while (parentNode) {
+      stack.push(parentNode)
+      parentNode = parentNode.leftNode
+    }
+  }
+</code></pre></div><p>这里为什么要先让遍历过的节点入栈呢？中序遍历，先遍历左节点，再根节点，最后是右节点，所以我们需要保存一下根节点，以便接下来访问根节点和借助根节点来访问右节点。</p> <p>1.现在我们已经到了左子树的最下面的节点了，这时它是一个叶子节点。通过遍历，它也在栈中而且是在栈顶，所以就可以访问它的data了，然后访问根节点的data，最后将parentNode指向根节点的右节点，访问右节点。</p> <p>如图</p> <p><img src="http://images2017.cnblogs.com/blog/1272362/201711/1272362-20171129190517511-281709335.png" alt=""></p> <p>按我上面说的话，代码应该是这个样子的。</p> <div class="language- extra-class"><pre class="language-text"><code>    parentNode = stack.pop()
+    console.log(parentNode.data)
+    parentNode = stack.pop()
+    console.log(parentNode.data)
+    parentNode = parentNode.rightNode
+</code></pre></div><p>2.但是还有一种情况呢？如果左子树最下面的节点没有左节点，只有右节点呢？也就是说如果这个节点不是叶子节点呢？那么就直接访问根节点的data，再将parentNode指向根节点的右节点，访问右节点。对吧？</p> <p>如图</p> <p><img src="http://images2017.cnblogs.com/blog/1272362/201711/1272362-20171129190559058-1541237365.png" alt=""></p> <p>那现在代码又成了这个样子。</p> <div class="language- extra-class"><pre class="language-text"><code>    parentNode = stack.pop()
+    console.log(parentNode.data)
+    parentNode = parentNode.rightNode
+</code></pre></div><p>那么怎么统一格式呢？之前我们说到当parentNode不存在时就需要出栈了，那我们可以把左子树最下面的节点也就是第一种情况时的叶子节点看作一个根节点，继续访问它的右节点，因为它是一个叶子节点，所以右节点为null，所以就又执行了一次出栈操作。这时候代码就可以统一了，好好想一想，有点抽象。</p> <p>统一后的代码就是情况2的代码</p> <div class="language- extra-class"><pre class="language-text"><code>    parentNode = stack.pop()
+    console.log(parentNode.data)
+    parentNode = parentNode.rightNode
+</code></pre></div><p>如果上面的都理解了的话，就很简单了，贴代码</p> <div class="language- extra-class"><pre class="language-text"><code>  function inOrderWithoutRecursion (root) {
+    if (!root)
+      return
+
+    var parentNode = root
+    var stack = new Stack()
+
+    while (parentNode || !stack.isEmpty()) {
+
+      // 一直遍历到左子树的最下面，将一路遍历过的节点push进栈中
+      while (parentNode) {
+        stack.push(parentNode)
+        parentNode = parentNode.leftNode
+      }
+      // 当parentNode为空时，说明已经达到了左子树的最下面，可以出栈操作了
+      if (!stack.isEmpty()) {
+        parentNode = stack.pop()
+        console.log(parentNode.data)
+        // 进入右子树，开始新一轮循环
+        parentNode = parentNode.rightNode
+      }
+    }
+  }
+</code></pre></div><p>优化</p> <div class="language- extra-class"><pre class="language-text"><code>  function inOrderWithoutRecursion (root) {
+    if (!root)
+      return
+
+    var parentNode = root
+    var stack = new Stack()
+
+    while (parentNode || !stack.isEmpty()) {
+
+      // 一直遍历到左子树的最下面，将一路遍历过的节点push进栈中
+      if (parentNode) {
+        stack.push(parentNode)
+        parentNode = parentNode.leftNode
+      }
+      // 当parentNode为空时，说明已经达到了左子树的最下面，可以出栈操作了
+      else {
+        parentNode = stack.pop()
+        console.log(parentNode.data)
+        // 进入右子树，开始新一轮循环
+        parentNode = parentNode.rightNode
+      }
+    }
+  }
+</code></pre></div><h2 id="_6-非递归先序遍历二叉排序树"><a href="#_6-非递归先序遍历二叉排序树" class="header-anchor">#</a> 6.非递归先序遍历二叉排序树</h2> <hr> <p>有了中序遍历的基础，掌握先序遍历就不难了吧？先序就是到了根节点就打印出来，然后将节点入栈，然后左子树，基本与中序类似，想想就明白。</p> <p>直接贴最终代码</p> <div class="language- extra-class"><pre class="language-text"><code>  function PreOrderWithoutRecursion (root) {
+    if (!root)
+      return
+
+    var parentNode = root
+    var stack = new Stack()
+
+    while (parentNode || !stack.isEmpty()) {
+
+      // 一直遍历到左子树的最下面，一边打印data,将一路遍历过的节点push进栈中
+      if (parentNode) {
+        console.log(parentNode.data)
+        stack.push(parentNode)
+        parentNode = parentNode.leftNode
+      }
+      // 当parentNode为空时，说明已经达到了左子树的最下面，可以出栈操作了
+      else {
+        parentNode = stack.pop()
+        // 进入右子树，开始新一轮循环
+        parentNode = parentNode.rightNode
+      }
+    }
+  }
+</code></pre></div><h2 id="_7-非递归后序遍历二叉排序树"><a href="#_7-非递归后序遍历二叉排序树" class="header-anchor">#</a> 7.非递归后序遍历二叉排序树</h2> <hr> <p>后序遍历中，一个根节点被访问的前提是，右节点不存在或者右节点已经被访问过</p> <p>后序遍历难点在于：判断右节点是否被访问过。</p> <ul><li><p>如果右节点不存在或者右节点已经被访问过，则访问根节点</p></li> <li><p>如果不符合上述条件，则跳过根节点，去访问右节点</p></li></ul> <p>我们可以使用一个变量来保存上一个访问的节点，如果是当前访问的节点的右节点就是上一个访问过的节点，证明右节点已经被访问过了，可以去访问根节点了。</p> <p>这里需要注意的一点是：节点Node是一个对象，如果用==比较的话，返回的永远是false，所以我们比较的是node的data属性。</p> <p>代码在这里</p> <div class="language- extra-class"><pre class="language-text"><code>function PostOrderWithoutRecursion (root) {
+    if (!root)
+      return
+
+    var parentNode = root
+    var stack = new Stack()
+    var lastVisitNode = null
+
+    while (parentNode || !stack.isEmpty()) {
+      if (parentNode) {
+        stack.push(parentNode)
+        parentNode = parentNode.leftNode
+      }
+      else {
+        parentNode = stack.pop()
+        // 如果当前节点没有右节点或者是右节点被访问过，则访问当前节点
+        if (!parentNode.rightNode || parentNode.rightNode.data == lastVisitNode.data) {
+          console.log(parentNode.data)
+          lastVisitNode = parentNode
+        }
+        // 访问右节点
+        else {
+          stack.push(parentNode)
+          parentNode = parentNode.rightNode
+          while (parentNode) {
+            parentNode = parentNode.leftNode
+          }
+        }
+      }
+    }
+  }
+</code></pre></div><h2 id="_8-二叉排序树的查找"><a href="#_8-二叉排序树的查找" class="header-anchor">#</a> 8.二叉排序树的查找</h2> <hr> <p>写查找是为了删除节点做准备。</p> <p>1.查找给定值</p> <p>很简单，根据要查找的数据和根节点对比，然后遍历左子树或者右子树就好了。</p> <div class="language- extra-class"><pre class="language-text"><code>  find (data) {
+    var currentNode = this.root
+    while (currentNode) {
+      if (currentNode.data == data) {
+        return currentNode
+      } else if (currentNode.data &gt; data) {
+        currentNode = currentNode.leftNode
+      } else {
+        currentNode = currentNode.rightNode
+      }
+    }
+    return null
+  }
+</code></pre></div><p>2.查找最大值</p> <p>很简单，直接找到最右边的节点就是了</p> <div class="language- extra-class"><pre class="language-text"><code>  getMax () {
+    var currentNode = this.root
+    while (currentNode.rightNode) {
+      currentNode = currentNode.rightNode
+    }
+    return currentNode.data
+  }
+</code></pre></div><p>3.查找最小值</p> <p>一样</p> <div class="language- extra-class"><pre class="language-text"><code>  getMax () {
+    var currentNode = this.root
+    while (currentNode.leftNode) {
+      currentNode = currentNode.leftNode
+    }
+    return currentNode.data
+  }
+</code></pre></div><h2 id="_9-二叉排序树的删除"><a href="#_9-二叉排序树的删除" class="header-anchor">#</a> 9.二叉排序树的删除</h2> <hr> <p>删除很重要，说下逻辑：</p> <p>首先从二叉排序树的根节点开始查找关键字为key的待删节点，如果树中不存在此节点，则不做任何操作；</p> <p>否则，假设待删节点为<code>delNode</code>，其父节点为<code>delNodeParent</code>，<code>delNodeLeft</code>和<code>delNodeRight</code>分别为待删节点的左子树、右子树。</p> <p>可设<code>delNode</code>是<code>delNodeParent</code>的左子树（右子树情况类似）。 分下面三种情况考虑</p> <p>1.若<code>delNode</code>为叶子节点，即<code>delNodeLeft</code>和<code>delNodeRight</code>均为空。删除叶子节点不会破坏整棵树的结构，则只需修改<code>delNodeParent</code>的指向即可。</p> <p><strong><center><font color="red">delNodeParent.leftNode = null</font></center></strong></p> <p>2.若<code>delNode</code>只有左子树<code>delNodeLeft</code>或者只有右子树<code>delNodeRight</code>，此时只要令<code>delNodeLeft</code>或者<code>delNodeRight</code>直接成为待删节点的父节点的左子树即可。</p> <p><strong><center><font color="red">delNodeParent.leftNode = delNode.leftNode</font></center></strong> <center>（或者delNodeParent.leftNode = delNode.rightNode）</center></p> <p>3.若<code>delNode</code>左子树和右子树均不为空，删除<code>delNode</code>之后，为了保持其他元素之间的相对位置不变，可以有两种处理办法</p> <ul><li><p>令<code>delNode</code>的左子树为<code>delNodeParent</code>的左子树，而<code>delNode</code>的右子树为<code>delNode</code>的左子树中序遍历的最后一个节点（令其为<code>leftBigNode</code>，即左子树中最大的节点，因为要符合二叉树的性质，仔细想一想）的右子树
+<strong><center><font color="red">delNodeParent.leftNode = delNode.leftNode</font></center></strong> <strong><center><font color="red">leftBigNode.rightNode = delNode.rightNode</font></center></strong></p></li> <li><p>令<code>delNode</code>的直接前驱（也就是左子树中最大的节点，令其为<code>leftBigNode</code>）替代<code>delNode</code>，然后再从二叉排序树中删除它的直接前驱（或直接后继，原理类似）。当以直接前驱替代<code>delNode</code>时，由于<code>leftBigNode</code>只有左子树（否则它就不是左子树中最大的节点），则在删除<code>leftBigNode</code>之后，只要令<code>leftBigNode</code>的左子树为双亲<code>leftBigNodeParent</code>的右子树即可。
+<strong><center><font color="red">delNode.data = leftBigNode.data</font></center></strong> <strong><center><font color="red">leftBigNodeParent.rightNode = leftBigNode.leftNode</font></center></strong></p></li></ul> <p>画了三张图片来理解下：</p> <p>删除节点P之前：</p> <p><img src="http://images2017.cnblogs.com/blog/1272362/201712/1272362-20171202120305479-872221890.png" alt=""></p> <p>第一种方式删除后：</p> <p><img src="http://images2017.cnblogs.com/blog/1272362/201712/1272362-20171202120436479-2058277545.png" alt=""></p> <p>第二种方式删除后：</p> <p><img src="http://images2017.cnblogs.com/blog/1272362/201712/1272362-20171202120656604-2075321669.png" alt=""></p> <p>显然，第一种方式可能增加数的深度，而后一种方法是以被删节点左子树中最大的节点代替被删的节点，然后从左子树中删除这个节点。此节点一定没有子树（同上，否则它就不是左子树中最大的节点），这样不会增加树的高度，所以常采用这种方案，下面的算法也使用这种方案。</p> <p>代码注释很清除，好好理解下，这块真的不好想</p> <div class="language- extra-class"><pre class="language-text"><code>  deleteNode (data) {
+    /********************** 初始化 **************************/
+    var delNode = this.root,
+        delNodeParent = null
+    /************ 从根节点查找关键字为data的节点 ***************/
+    while (delNode) {
+      if (delNode.data == data) break
+      delNodeParent = delNode // 记录被删节点的双亲节点
+      if (delNode.data &gt; data) delNode = delNode.leftNode // 在被删节点左子树中继续查找
+      else delNode = delNode.rightNode  // 在被删节点的右子树中继续查找
+    }
+    if (!delNode) { // 没找到
+      return 
+    }
+    /**
+     * 三种情况
+     * 1.被删节点既有左子树，又有右子树
+     * 2.被删节点只有右子树
+     * 3.被删节点只有左子树
+    **/
+    var leftBigNodeParent = delNode 
+    if (delNode.leftNode &amp;&amp; delNode.rightNode) { // 被删节点左右子树都存在
+      var leftBigNode = delNode.leftNode
+      while (leftBigNode.rightNode) { // 在被删节点的左子树中寻找其前驱节点，即最右下角的节点，也就是左子树中数值最大的节点
+        leftBigNodeParent = leftBigNode
+        leftBigNode = leftBigNode.rightNode // 走到右尽头
+      }
+      delNode.data = leftBigNode.data // 令被删节点的前驱替代被删节点
+      if (leftBigNodeParent.data != delNode.data) {
+        leftBigNodeParent.rightNode = leftBigNode.leftNode // 重接被删节点的前驱的父节点的右子树
+      } else {
+        leftBigNodeParent.leftNode = leftBigNode.leftNode // 重接被删节点的前驱的父节点的左子树
+      }
+    } else if (!delNode.leftNode) {
+      delNode = delNode.rightNode // 若被删节点没有左子树，只需重接其右子树
+    } else if (!delNode.rightNode) {
+      delNode = delNode.leftNode // 若被删节点没有右子树，只需重接其左子树
+    }
+    /********* 将被删节点的子树挂接到其父节点的相应位置 **********/
+    if (!delNodeParent) { 
+      this.root = delNode // 若被删节点是根节点
+    } else if (leftBigNodeParent.data == delNodeParent.data) {
+      delNodeParent.leftNode = delNode // 挂接到父节点的左子树位置
+    } else {
+      delNodeParent.rightNode = delNode // 挂接到父节点的右子树位置
+    }
+  }
+</code></pre></div><h2 id="_10-其他方法"><a href="#_10-其他方法" class="header-anchor">#</a> 10.其他方法</h2> <hr> <p>1.复制二叉排序树</p> <p>这一块我先用了递归，后来想到，BST是个对象，直接深度克隆就好了。。。不说了</p> <p>2.二叉排序树深度</p> <p>递归递归递归</p> <div class="language- extra-class"><pre class="language-text"><code>  class BST {
+    constructor() {
+      this.root = null
+    }
+    depth () {
+      return depthFn(this.root)
+    }
+  }
+
+  function depthFn (node) {
+    if (!node) {
+      return 0
+    } else {
+      var leftDepth = depthFn(node.leftNode)
+      var rightDepth = depthFn(node.rightNode)
+      if (leftDepth &gt; rightDepth)
+        return (leftDepth + 1)
+      else
+        return (rightDepth + 1)
+    }
+  }
+</code></pre></div><p>3.二叉排序树节点个数</p> <p>递归递归递归</p> <div class="language- extra-class"><pre class="language-text"><code>  class BST {
+    constructor() {
+      this.root = null
+    }
+    nodeCount () {
+      return nodeCount(this.root)
+    }
+  }
+  function nodeCount(node) {
+    if (!node) {
+      return 0
+    } else {
+      return nodeCount(node.leftNode) + nodeCount(node.rightNode) + 1
+    }
+  }
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新于:</span> <span class="time">7/31/2020, 6:35:42 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.c4d916ef.js" defer></script><script src="/assets/js/2.7b65586e.js" defer></script><script src="/assets/js/12.4fad5f4d.js" defer></script>
+  </body>
+</html>
